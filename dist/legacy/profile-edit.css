@@ -1,0 +1,942 @@
+/* ==============================
+   기본 설정
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+  color: #4f3b2f;
+  background-color: #f6efe6;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+.page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #e8c6aa 0%,
+      #e8c6aa 12%,
+      #f0d7bf 12%,
+      #f0d7bf 74%,
+      #a37044 74%,
+      #8e5f39 100%
+    );
+}
+
+/* 담벼락 패턴 */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 104px 0 26% 0;
+
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06)),
+    repeating-linear-gradient(
+      to right,
+      transparent 0 74px,
+      rgba(172, 116, 71, 0.26) 74px 76px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 38px,
+      rgba(172, 116, 71, 0.26) 38px 40px
+    );
+
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* 흙 */
+.page::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 28%;
+
+  background:
+    radial-gradient(circle at 10% 30%, rgba(120, 78, 45, 0.22) 0 26px, transparent 28px),
+    radial-gradient(circle at 30% 72%, rgba(120, 78, 45, 0.22) 0 22px, transparent 24px),
+    radial-gradient(circle at 56% 36%, rgba(120, 78, 45, 0.2) 0 24px, transparent 26px),
+    radial-gradient(circle at 78% 65%, rgba(120, 78, 45, 0.22) 0 20px, transparent 22px),
+    radial-gradient(circle at 92% 25%, rgba(120, 78, 45, 0.2) 0 24px, transparent 26px),
+    linear-gradient(to bottom, #9b683d 0%, #7e532f 100%);
+
+  pointer-events: none;
+}
+
+/* ==============================
+   배경 장식
+================================ */
+.farm-deco {
+  position: absolute;
+  z-index: 0;
+
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.deco-stake {
+  width: 16px;
+  height: 320px;
+
+  background: linear-gradient(to bottom, #b78356 0%, #8e5f39 100%);
+  border-radius: 999px;
+
+  box-shadow: 0 8px 14px rgba(92, 61, 38, 0.12);
+}
+
+.stake-left {
+  left: 11%;
+  bottom: 110px;
+  transform: rotate(8deg);
+}
+
+.stake-right {
+  right: 10%;
+  bottom: 100px;
+  transform: rotate(-7deg);
+}
+
+.deco-leaf {
+  width: 56px;
+  height: 28px;
+
+  background-color: rgba(109, 155, 65, 0.7);
+  border-radius: 50% 0 50% 0;
+}
+
+.leaf-left {
+  left: 12%;
+  top: 250px;
+  transform: rotate(-26deg);
+}
+
+.leaf-right {
+  right: 12%;
+  top: 300px;
+  transform: rotate(24deg);
+}
+
+.deco-tomato {
+  width: 64px;
+  height: 58px;
+
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.28) 0 10px, transparent 11px),
+    #e85d4f;
+
+  border: 3px solid #be3f35;
+  border-radius: 48% 48% 52% 52% / 42% 42% 58% 58%;
+
+  box-shadow:
+    inset -6px -8px 0 rgba(0, 0, 0, 0.06),
+    0 8px 14px rgba(92, 61, 38, 0.12);
+}
+
+.deco-tomato::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 44px;
+  height: 26px;
+
+  background-color: #6d9b41;
+
+  clip-path: polygon(
+    50% 0%,
+    60% 36%,
+    100% 30%,
+    72% 56%,
+    84% 100%,
+    50% 70%,
+    16% 100%,
+    28% 56%,
+    0% 30%,
+    40% 36%
+  );
+}
+
+.tomato-left {
+  left: 7%;
+  top: 430px;
+  transform: rotate(-12deg);
+}
+
+.tomato-right {
+  right: 8%;
+  top: 500px;
+  transform: rotate(10deg) scale(0.9);
+}
+
+/* ==============================
+   헤더
+================================ */
+.header {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 104px;
+
+  border-bottom: 1px solid #cba07c;
+  background-color: rgba(255, 248, 239, 0.88);
+
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  width: 700px;
+  height: 100%;
+  margin: 0 auto;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  margin: 0;
+
+  font-size: 38px;
+  font-weight: 700;
+  text-align: center;
+  color: #b03d31;
+  letter-spacing: -1px;
+}
+
+.header-title::before {
+  content: "🍅";
+  margin-right: 12px;
+  font-size: 28px;
+}
+
+.header-title::after {
+  content: "🌿";
+  margin-left: 10px;
+  font-size: 24px;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+  border: 2px solid #d6a57c;
+  background-color: #fff3e2;
+
+  color: #8b5f3b;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.back-button:hover {
+  transform: translateY(-50%) scale(1.04);
+}
+
+.header-profile-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  border: 3px solid #d86659;
+  border-radius: 50%;
+  background: #fff4e8;
+
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(115, 64, 39, 0.18);
+}
+
+.header-profile-button:hover {
+  transform: translateY(-50%) scale(1.04);
+}
+
+.header-profile-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+  background-color: #fff4e8;
+}
+
+/* ==============================
+   메인
+================================ */
+.profile-main {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  padding: 44px 20px 110px;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ==============================
+   농부 카드
+================================ */
+.farmer-card {
+  position: relative;
+
+  width: 620px;
+  padding: 38px 44px 42px;
+
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.36), transparent 36%),
+    #fff6e8;
+
+  border: 2px solid #d6a57c;
+  border-radius: 30px;
+
+  box-shadow:
+    0 22px 44px rgba(92, 61, 38, 0.2),
+    inset 0 0 0 8px rgba(255, 255, 255, 0.32);
+}
+
+.card-label {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 22px;
+}
+
+.card-label span {
+  padding: 9px 18px;
+
+  background-color: #f8d5b0;
+  border: 1px solid #e4b27c;
+  border-radius: 999px;
+
+  color: #8d5b38;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.card-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+
+  width: 150px;
+  height: 34px;
+
+  background-color: rgba(255, 236, 190, 0.72);
+  border: 1px solid rgba(201, 154, 108, 0.34);
+  border-radius: 8px;
+
+  box-shadow: 0 4px 8px rgba(92, 61, 38, 0.08);
+}
+
+.page-title {
+  margin: 0;
+
+  text-align: center;
+  font-size: 34px;
+  font-weight: 800;
+  color: #5a4030;
+  letter-spacing: -1px;
+}
+
+.page-subtitle {
+  margin: 10px 0 30px;
+
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #8b6040;
+}
+
+/* ==============================
+   프로필 영역
+================================ */
+.profile-section {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.section-title {
+  display: block;
+
+  margin: 0 0 10px;
+
+  font-size: 16px;
+  font-weight: 800;
+  color: #5a4030;
+  text-align: left;
+}
+
+.profile-section .section-title {
+  text-align: center;
+}
+
+.profile-preview-wrap {
+  position: relative;
+
+  width: fit-content;
+  margin: 0 auto 16px;
+  padding-top: 24px;
+}
+
+.equipped-item-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.equipped-item-overlay.is-hidden {
+  display: none;
+}
+
+.equipped-item-image {
+  position: absolute;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(92, 61, 38, 0.18));
+}
+
+.equipped-item-image.item-straw-hat {
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 188px;
+}
+
+.equipped-item-image.item-red-boots {
+  left: 50%;
+  bottom: -76px;
+  transform: translateX(-50%);
+  width: 120px;
+}
+
+.equipped-item-image.item-green-apron {
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 154px;
+  z-index: 5;
+}
+
+.equipped-item-image.item-tomato-bag {
+  left: -18px;
+  bottom: -10px;
+  width: 106px;
+}
+
+.equipped-item-image.item-watering-can {
+  right: -74px;
+  top: 56px;
+  width: 104px;
+}
+
+.equipped-item-image.item-small-shovel {
+  left: -58px;
+  bottom: -2px;
+  width: 86px;
+}
+
+.equipped-item-image.item-tomato-hairpin {
+  top: 8px;
+  right: -62px;
+  width: 120px;
+}
+
+.equipped-item-image.item-farmer-gloves {
+  top: 16px;
+  left: -48px;
+  width: 122px;
+}
+
+.profile-preview {
+  width: 154px;
+  height: 154px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.25) 0 20px, transparent 21px),
+    #e85d4f;
+
+  border: 4px solid #be3f35;
+
+  box-shadow:
+    inset -8px -10px 0 rgba(0, 0, 0, 0.06),
+    0 10px 18px rgba(92, 61, 38, 0.14);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-preview-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+  background-color: transparent;
+}
+
+.profile-button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.change-profile-button {
+  min-width: 110px;
+  height: 38px;
+
+  padding: 0 18px;
+
+  border: 1px solid #7fa65b;
+  border-radius: 999px;
+
+  background-color: #e6f0d1;
+  color: #5f7d41;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.change-profile-button:hover {
+  background-color: #dbeabf;
+  transform: translateY(1px);
+}
+
+/* ==============================
+   입력 공통
+================================ */
+.form-section {
+  margin-bottom: 24px;
+}
+
+.email-box,
+.nickname-input {
+  width: 100%;
+  min-height: 52px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #d6b28b;
+  border-radius: 16px;
+
+  background-color: #fffdf8;
+  color: #4f3b2f;
+
+  font-size: 15px;
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.email-box {
+  display: flex;
+  align-items: center;
+}
+
+.nickname-input {
+  outline: none;
+}
+
+.nickname-input::placeholder {
+  color: #a48b75;
+}
+
+.nickname-input:focus {
+  border-color: #d85244;
+  box-shadow:
+    0 0 0 3px rgba(216, 82, 68, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.helper-text {
+  min-height: 18px;
+  margin: 6px 0 0;
+
+  color: #d6453a;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: left;
+}
+
+.helper-text::before {
+  content: "";
+}
+
+.helper-text:not(:empty)::before {
+  content: "* ";
+}
+
+.profile-section .helper-text {
+  text-align: center;
+}
+
+/* ==============================
+   버튼
+================================ */
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.submit-button {
+  width: 100%;
+  height: 48px;
+
+  border-radius: 999px;
+
+  background-color: #d7c7af;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  cursor: not-allowed;
+  box-shadow: 0 5px 0 #bca98f;
+}
+
+.submit-button.active {
+  background-color: #d85244;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #b83f35;
+}
+
+.submit-button.active:hover {
+  transform: translateY(1px);
+  box-shadow: 0 4px 0 #b83f35;
+}
+
+.password-edit-button {
+  width: 100%;
+  height: 44px;
+
+  border: 2px solid #7aa65a;
+  border-radius: 999px;
+
+  background-color: #ecf6dc;
+  color: #4f7d36;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  box-shadow: 0 4px 0 #c6df9d;
+}
+
+.password-edit-button:hover {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 #c6df9d;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px 0;
+
+  color: #8b6040;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.logout-button:hover {
+  color: #4f7d36;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(79, 59, 47, 0.92);
+  color: #fff;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* ==============================
+   반응형
+================================ */
+@media (max-width: 900px) {
+  .header-inner {
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .back-button {
+    left: 24px;
+  }
+
+  .header-profile-button {
+    right: 24px;
+  }
+
+  .farm-deco {
+    opacity: 0.26;
+  }
+}
+
+@media (max-width: 680px) {
+  .profile-main {
+    padding: 28px 16px 90px;
+  }
+
+  .farmer-card {
+    width: 100%;
+    padding: 30px 22px 32px;
+    border-radius: 24px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .header-title {
+    font-size: 25px;
+  }
+
+  .header-title::after {
+    display: none;
+  }
+
+  .profile-preview {
+    width: 138px;
+    height: 138px;
+  }
+
+  .stake-left,
+  .stake-right,
+  .leaf-left,
+  .leaf-right,
+  .tomato-left,
+  .tomato-right {
+    display: none;
+  }
+}
+
+.activity-section,
+.shop-section {
+  margin-top: 26px;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.activity-card {
+  padding: 18px 16px;
+  border: 2px solid #e2b996;
+  border-radius: 22px;
+  background: rgba(255, 249, 240, 0.92);
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(101, 67, 42, 0.08);
+}
+
+.activity-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 22px;
+  color: #9b4a34;
+}
+
+.activity-label,
+.shop-helper,
+.item-status {
+  color: #8c6a52;
+  font-size: 14px;
+}
+
+.item-status--장착-중 {
+  color: #b03d31;
+  font-weight: 800;
+}
+
+.item-status--보유-중 {
+  color: #4f7d36;
+  font-weight: 700;
+}
+
+.item-status--구매-가능 {
+  color: #8b6040;
+  font-weight: 700;
+}
+
+.item-status--구매-불가능 {
+  color: #a48b75;
+}
+
+.equipped-items-text {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #7b5e47;
+  font-size: 14px;
+}
+
+.my-garden-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 15px 18px;
+  border-radius: 18px;
+  background: #fff4df;
+  border: 2px solid #e0b27c;
+  color: #8d5b38;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.my-garden-button:hover {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 #e0b27c;
+}
+
+.shop-header {
+  margin-bottom: 14px;
+}
+
+.shop-helper {
+  margin: 6px 0 0;
+}
+
+.item-shop-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.item-card {
+  padding: 16px;
+  border-radius: 20px;
+  border: 2px solid #e4c4a1;
+  background: rgba(255, 252, 246, 0.96);
+}
+
+.item-card-top,
+.item-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.item-card-bottom {
+  margin-top: 12px;
+}
+
+.item-name {
+  font-size: 18px;
+}
+
+.item-price {
+  color: #d28a23;
+  font-weight: 700;
+}
+
+.item-action-button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #d85b46;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #b83f35;
+}
+
+.item-action-button:hover:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 #b83f35;
+}
+
+.item-action-button--장착-중 {
+  background: #e6f0d1;
+  color: #4f7d36;
+  box-shadow: 0 4px 0 #c6df9d;
+}
+
+.item-action-button--장착-중:hover:not(:disabled) {
+  box-shadow: 0 3px 0 #c6df9d;
+}
+
+.item-action-button--보유-중 {
+  background: #f8d5b0;
+  color: #8d5b38;
+  box-shadow: 0 4px 0 #e4b27c;
+}
+
+.item-action-button--보유-중:hover:not(:disabled) {
+  box-shadow: 0 3px 0 #e4b27c;
+}
+
+.item-action-button:disabled {
+  background: #d8c4b5;
+  cursor: default;
+  box-shadow: 0 4px 0 #c2aa99;
+}
+
+@media (max-width: 760px) {
+  .activity-grid,
+  .item-shop-list {
+    grid-template-columns: 1fr;
+  }
+}

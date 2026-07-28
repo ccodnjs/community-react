@@ -1,0 +1,699 @@
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap");
+
+/* ==============================
+   기본 설정
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  font-family: "Gowun Dodum", Arial, sans-serif;
+  color: #4f3b2f;
+  background-color: #f6efe6;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #e8c6aa 0%,
+      #e8c6aa 12%,
+      #f0d7bf 12%,
+      #f0d7bf 74%,
+      #a37044 74%,
+      #8e5f39 100%
+    );
+}
+
+/* 담벼락 벽돌 패턴 */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 104px 0 26% 0;
+
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06)),
+    repeating-linear-gradient(
+      to right,
+      transparent 0 74px,
+      rgba(172, 116, 71, 0.28) 74px 76px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 38px,
+      rgba(172, 116, 71, 0.28) 38px 40px
+    );
+
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* 흙 느낌 */
+.page::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 28%;
+
+  background:
+    radial-gradient(circle at 10% 30%, rgba(120, 78, 45, 0.22) 0 26px, transparent 28px),
+    radial-gradient(circle at 30% 72%, rgba(120, 78, 45, 0.22) 0 22px, transparent 24px),
+    radial-gradient(circle at 56% 36%, rgba(120, 78, 45, 0.2) 0 24px, transparent 26px),
+    radial-gradient(circle at 78% 65%, rgba(120, 78, 45, 0.22) 0 20px, transparent 22px),
+    radial-gradient(circle at 92% 25%, rgba(120, 78, 45, 0.2) 0 24px, transparent 26px),
+    linear-gradient(to bottom, #9b683d 0%, #7e532f 100%);
+
+  pointer-events: none;
+}
+
+/* ==============================
+   폰트 포인트
+================================ */
+.header-title,
+.intro-title,
+.write-button,
+.garden-label,
+.empty-message,
+.post-card-title,
+.post-title,
+.post-list > * h2,
+.post-list > * h3,
+.post-list > * strong {
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+}
+
+/* ==============================
+   헤더
+================================ */
+.header {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 104px;
+
+  border-bottom: 1px solid #cba07c;
+  background-color: rgba(255, 248, 239, 0.88);
+
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  width: 700px;
+  height: 100%;
+  margin: 0 auto;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-left {
+  display: none;
+}
+
+.header-title {
+  margin: 0;
+
+  font-size: 42px;
+  font-weight: 400;
+  text-align: center;
+  color: #b03d31;
+  letter-spacing: -0.5px;
+}
+
+.header-title::before {
+  content: "🍅";
+  margin-right: 12px;
+  font-size: 30px;
+}
+
+.header-title::after {
+  content: "🌿";
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+/* ==============================
+   프로필 버튼
+================================ */
+.profile-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  border: 3px solid #d86659;
+  border-radius: 50%;
+  background: #fff4e8;
+
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(115, 64, 39, 0.18);
+}
+
+.profile-button:hover {
+  transform: translateY(-50%) scale(1.04);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+  background-color: #fff4e8;
+}
+
+/* ==============================
+   메인
+================================ */
+.posts-main {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  padding: 42px 20px 110px;
+}
+
+/* ==============================
+   소개 영역
+================================ */
+.intro-section {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.intro-card {
+  width: 760px;
+  padding: 34px 40px 38px;
+
+  background: rgba(255, 248, 239, 0.94);
+  border: 2px solid #d9b28c;
+  border-radius: 0 0 30px 30px;
+
+  box-shadow:
+    0 18px 30px rgba(101, 67, 42, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+
+  text-align: center;
+}
+
+.intro-label {
+  display: inline-block;
+
+  margin: 0 0 16px;
+  padding: 8px 16px;
+
+  background-color: #f8d5b0;
+  border: 1px solid #e4b27c;
+  border-radius: 999px;
+
+  color: #8d5b38;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+.intro-title {
+  margin: 0;
+
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #5a4030;
+  letter-spacing: -1px;
+}
+
+.intro-description {
+  margin: 20px 0 0;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+  color: #7a5b45;
+}
+
+/* 게시글 작성 버튼 */
+.write-button,
+.garden-button {
+  min-width: 210px;
+  height: 58px;
+  padding: 0 24px;
+
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+  border-radius: 999px;
+
+  background: linear-gradient(to bottom, #e56d5e 0%, #d95143 100%);
+  color: #ffffff;
+
+  font-size: 23px;
+  font-weight: 400;
+
+  box-shadow: 0 7px 0 #b94136;
+}
+
+.write-button,
+.garden-button {
+  margin-top: 0;
+}
+
+.write-button:hover,
+.garden-button:hover {
+  transform: translateY(1px);
+  box-shadow: 0 6px 0 #b94136;
+}
+
+.write-button:active,
+.garden-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #b94136;
+}
+
+/* ==============================
+   게시글 목록 영역
+================================ */
+.post-list-section {
+  position: relative;
+
+  width: 100%;
+  max-width: 1120px;
+
+  margin: 44px auto 0;
+}
+
+.garden-label {
+  width: fit-content;
+
+  margin: 0 auto 24px;
+  padding: 11px 20px;
+
+  background-color: #fff3e2;
+  border: 2px solid #d6a57c;
+  border-radius: 999px;
+
+  color: #8b5f3b;
+  font-size: 20px;
+  font-weight: 400;
+
+  box-shadow: 0 8px 14px rgba(101, 67, 42, 0.1);
+}
+
+.empty-message {
+  width: fit-content;
+
+  margin: 0 auto 20px;
+  padding: 18px 24px;
+
+  background-color: rgba(255, 248, 239, 0.96);
+  border: 2px dashed #d4a57d;
+  border-radius: 20px;
+
+  font-size: 22px;
+  font-weight: 400;
+  color: #7a5b45;
+  text-align: center;
+  line-height: 1.5;
+
+  box-shadow: 0 12px 20px rgba(101, 67, 42, 0.08);
+}
+
+.empty-message::before {
+  content: "🌱 ";
+}
+
+/* ==============================
+   게시글 리스트
+================================ */
+.post-list {
+  width: 100%;
+  margin-top: 24px;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  align-items: start;
+  gap: 42px 30px;
+}
+
+/* ==============================
+   토마토 카드 공통
+================================ */
+.post-list > * {
+  --tomato-main: #e85d4f;
+  --tomato-border: #c04337;
+
+  position: relative;
+
+  width: 100%;
+  max-width: 320px;
+  min-height: 250px;
+
+  padding: 58px 26px 28px;
+
+  border-radius: 44% 44% 48% 48% / 38% 38% 56% 56%;
+  border: 2px solid var(--tomato-border);
+
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.32) 0 18%, transparent 19%),
+    radial-gradient(circle at 66% 38%, rgba(255, 255, 255, 0.15) 0 13%, transparent 14%),
+    var(--tomato-main);
+
+  box-shadow:
+    inset -10px -12px 0 rgba(0, 0, 0, 0.06),
+    0 14px 18px rgba(107, 64, 39, 0.16);
+
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* 토마토 꼭지 */
+.post-list > *::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 74px;
+  height: 42px;
+
+  background-color: #6d9b41;
+
+  -webkit-clip-path: polygon(
+    50% 0%,
+    60% 36%,
+    100% 30%,
+    72% 56%,
+    84% 100%,
+    50% 70%,
+    16% 100%,
+    28% 56%,
+    0% 30%,
+    40% 36%
+  );
+
+  clip-path: polygon(
+    50% 0%,
+    60% 36%,
+    100% 30%,
+    72% 56%,
+    84% 100%,
+    50% 70%,
+    16% 100%,
+    28% 56%,
+    0% 30%,
+    40% 36%
+  );
+}
+
+/* 토마토 줄기 */
+.post-list > *::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 11px;
+  height: 22px;
+
+  border-radius: 999px;
+  background-color: #587838;
+}
+
+.post-list > *:hover {
+  transform: translateY(-5px) rotate(0deg) !important;
+
+  box-shadow:
+    inset -10px -12px 0 rgba(0, 0, 0, 0.06),
+    0 20px 24px rgba(107, 64, 39, 0.2);
+}
+
+.post-list > *:nth-child(odd) {
+  transform: rotate(-1.5deg);
+}
+
+.post-list > *:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+
+/* 익기 정도별 토마토 색 */
+.post-list > *:nth-child(6n + 1) {
+  --tomato-main: #88b95f;
+  --tomato-border: #6d9b41;
+}
+
+.post-list > *:nth-child(6n + 2) {
+  --tomato-main: #ea7254;
+  --tomato-border: #d4573c;
+}
+
+.post-list > *:nth-child(6n + 3) {
+  --tomato-main: #b8c65f;
+  --tomato-border: #95a34e;
+}
+
+.post-list > *:nth-child(6n + 4) {
+  --tomato-main: #ef9c54;
+  --tomato-border: #da7f36;
+}
+
+.post-list > *:nth-child(6n + 5) {
+  --tomato-main: #d84a42;
+  --tomato-border: #b93a33;
+}
+
+.post-list > *:nth-child(6n + 6) {
+  --tomato-main: #e1b95c;
+  --tomato-border: #c89a3b;
+}
+
+.post-list > * > * {
+  position: relative;
+  z-index: 1;
+}
+
+.post-card {
+  cursor: pointer;
+}
+
+/* ==============================
+   게시글 카드 내부 텍스트
+================================ */
+.post-card-title,
+.post-title,
+.post-list > * h2,
+.post-list > * h3 {
+  margin: 0 0 12px;
+
+  font-size: 24px;
+  font-weight: 400;
+  color: #fff8ee;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-content,
+.post-content,
+.post-list > * p {
+  margin: 0 0 8px;
+
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 248, 238, 0.95);
+  line-height: 1.55;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-info,
+.post-info,
+.post-meta {
+  margin-top: auto;
+  padding-top: 14px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 248, 238, 0.95);
+  line-height: 1.45;
+}
+
+.post-author,
+.author-info,
+.writer-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 12px;
+
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 248, 238, 0.95);
+}
+
+.post-author img,
+.author-info img,
+.writer-info img,
+.post-list img {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+}
+
+/* ==============================
+   반응형
+================================ */
+@media (max-width: 1100px) {
+  .header-inner {
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .profile-button {
+    right: 24px;
+  }
+
+  .intro-card {
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .post-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .posts-main {
+    padding: 28px 14px 90px;
+  }
+
+  .header-title {
+    font-size: 32px;
+  }
+
+  .header-title::after {
+    display: none;
+  }
+
+  .intro-card {
+    padding: 28px 22px 30px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .intro-title {
+    font-size: 32px;
+  }
+
+  .intro-description {
+    font-size: 16px;
+  }
+
+  .post-list {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .post-list > * {
+    max-width: 340px;
+    min-height: 235px;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-title {
+    font-size: 28px;
+  }
+
+  .profile-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .intro-title {
+    font-size: 27px;
+  }
+
+  .write-button,
+  .garden-button {
+    min-width: 180px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  .empty-message {
+    font-size: 18px;
+    padding: 16px 18px;
+  }
+
+  .page::before {
+    inset: 104px 0 28% 0;
+  }
+}
+
+.intro-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.garden-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
