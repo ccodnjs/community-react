@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.community.service.CommentServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.537Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.151">
+  <properties/>
+  <testcase name="다른 사람 게시글에 댓글을 달면 작성자와 게시글 주인 모두 보상을 받는다" classname="com.example.community.service.CommentServiceTest" time="0.148"/>
+  <testcase name="작성자가 아니면 댓글을 삭제할 수 없다" classname="com.example.community.service.CommentServiceTest" time="0.002"/>
+  <testcase name="작성자가 아니면 댓글을 수정할 수 없다" classname="com.example.community.service.CommentServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

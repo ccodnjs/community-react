@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.community.controller.UserControllerValidationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.113Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.053">
+  <properties/>
+  <testcase name="회원가입 요청값이 비어 있으면 검증 에러 형식으로 응답한다" classname="com.example.community.controller.UserControllerValidationTest" time="0.034"/>
+  <testcase name="비즈니스 예외는 표준화된 에러 응답 형식으로 내려간다" classname="com.example.community.controller.UserControllerValidationTest" time="0.018"/>
+  <system-out><![CDATA[2026-07-28T09:50:46.105+09:00  INFO 5432 --- [community] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.community.controller.UserControllerValidationTest]: UserControllerValidationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-07-28T09:50:46.110+09:00  INFO 5432 --- [community] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.community.CommunityApplication for test class com.example.community.controller.UserControllerValidationTest
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

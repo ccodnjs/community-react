@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.community.service.UserServiceTest" tests="6" skipped="0" failures="1" errors="0" timestamp="2026-07-28T00:50:46.764Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.009">
+  <properties/>
+  <testcase name="회원가입 시 비밀번호는 암호화되어 저장된다" classname="com.example.community.service.UserServiceTest" time="0.002"/>
+  <testcase name="비밀번호 수정 시 현재 비밀번호가 틀리면 403 예외가 발생한다" classname="com.example.community.service.UserServiceTest" time="0.0"/>
+  <testcase name="로그인 시 존재하지 않는 이메일이면 예외가 발생한다" classname="com.example.community.service.UserServiceTest" time="0.001"/>
+  <testcase name="비밀번호 수정 시 새 비밀번호는 암호화되어 저장된다" classname="com.example.community.service.UserServiceTest" time="0.001">
+    <failure message="org.mockito.exceptions.misusing.PotentialStubbingProblem: &#10;Strict stubbing argument mismatch. Please check:&#10; - this invocation of 'findByUserId' method:&#10;    postRepository.findByUserId(null);&#10;    -&gt; at com.example.community.service.UserService.toProfileResponse(UserService.java:177)&#10; - has following stubbing(s) with different arguments:&#10;    1. postRepository.findByUserId(1L);&#10;      -&gt; at com.example.community.service.UserServiceTest.updatePasswordEncodesNewPassword(UserServiceTest.java:119)&#10;Typically, stubbing argument mismatch indicates user mistake when writing tests.&#10;Mockito fails early so that you can debug potential problem easily.&#10;However, there are legit scenarios when this exception generates false negative signal:&#10;  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API&#10;    Please use 'will().given()' or 'doReturn().when()' API for stubbing.&#10;  - stubbed method is intentionally invoked with different arguments by code under test&#10;    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).&#10;For more information see javadoc for PotentialStubbingProblem class." type="org.mockito.exceptions.misusing.PotentialStubbingProblem">org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+Strict stubbing argument mismatch. Please check:
+ - this invocation of 'findByUserId' method:
+    postRepository.findByUserId(null);
+    -&gt; at com.example.community.service.UserService.toProfileResponse(UserService.java:177)
+ - has following stubbing(s) with different arguments:
+    1. postRepository.findByUserId(1L);
+      -&gt; at com.example.community.service.UserServiceTest.updatePasswordEncodesNewPassword(UserServiceTest.java:119)
+Typically, stubbing argument mismatch indicates user mistake when writing tests.
+Mockito fails early so that you can debug potential problem easily.
+However, there are legit scenarios when this exception generates false negative signal:
+  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+  - stubbed method is intentionally invoked with different arguments by code under test
+    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+For more information see javadoc for PotentialStubbingProblem class.
+	at app//com.example.community.service.UserService.toProfileResponse(UserService.java:177)
+	at app//com.example.community.service.UserService.updatePassword(UserService.java:100)
+	at app//com.example.community.service.UserServiceTest.updatePasswordEncodesNewPassword(UserServiceTest.java:122)
+	at java.base@25.0.3/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@25.0.3/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@25.0.3/java.util.ArrayList.forEach(ArrayList.java:1604)
+</failure>
+  </testcase>
+  <testcase name="로그인 시 비밀번호가 다르면 예외가 발생한다" classname="com.example.community.service.UserServiceTest" time="0.002"/>
+  <testcase name="회원가입 시 중복 이메일이면 예외가 발생한다" classname="com.example.community.service.UserServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.community.domain.UserTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.167Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.03">
+  <properties/>
+  <testcase name="회원 닉네임과 프로필 이미지를 수정할 수 있다" classname="com.example.community.domain.UserTest" time="0.029"/>
+  <testcase name="User 객체를 생성할 수 있다" classname="com.example.community.domain.UserTest" time="0.0"/>
+  <testcase name="회원 비밀번호를 수정할 수 있다" classname="com.example.community.domain.UserTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

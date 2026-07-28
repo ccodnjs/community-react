@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.community.service.PostLikeServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.689Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.03">
+  <properties/>
+  <testcase name="이미 좋아요가 있으면 보상을 중복 지급하지 않는다" classname="com.example.community.service.PostLikeServiceTest" time="0.029"/>
+  <testcase name="다른 사람 게시글에 첫 좋아요를 누르면 작성자에게 보상이 지급된다" classname="com.example.community.service.PostLikeServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
