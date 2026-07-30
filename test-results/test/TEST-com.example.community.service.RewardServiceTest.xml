@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.community.service.RewardServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.724Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.004">
-  <properties/>
-  <testcase name="보상 대상 사용자가 없으면 예외가 발생한다" classname="com.example.community.service.RewardServiceTest" time="0.002"/>
-  <testcase name="보상 서비스는 정책에 맞는 햇빛을 지급한다" classname="com.example.community.service.RewardServiceTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.community.service.PostServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-28T00:50:46.720Z" hostname="bagchaewon-ui-MacBookPro.local" time="0.003">
-  <properties/>
-  <testcase name="게시글 작성 시 작성 보상이 지급된다" classname="com.example.community.service.PostServiceTest" time="0.001"/>
-  <testcase name="작성자가 아니면 게시글을 삭제할 수 없다" classname="com.example.community.service.PostServiceTest" time="0.001"/>
-  <testcase name="작성자가 아니면 게시글을 수정할 수 없다" classname="com.example.community.service.PostServiceTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
