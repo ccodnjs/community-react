@@ -439,7 +439,7 @@ button {
 }
 
 .equipped-item-image.item-straw-hat {
-  top: -22px;
+  top: -36px;
   left: 50%;
   transform: translateX(-50%);
   width: 188px;
@@ -447,16 +447,18 @@ button {
 
 .equipped-item-image.item-red-boots {
   left: 50%;
-  bottom: -76px;
+  bottom: -30px;
   transform: translateX(-50%);
-  width: 120px;
+  width: 78px;
+  height: 60px;
+  object-fit: fill;
 }
 
 .equipped-item-image.item-green-apron {
   left: 50%;
-  bottom: -6px;
+  bottom: -52px;
   transform: translateX(-50%);
-  width: 154px;
+  width: 231px;
   z-index: 5;
 }
 
@@ -479,13 +481,13 @@ button {
 }
 
 .equipped-item-image.item-tomato-hairpin {
-  top: 8px;
-  right: -62px;
+  top: 4px;
+  left: -48px;
   width: 120px;
 }
 
 .equipped-item-image.item-farmer-gloves {
-  top: 16px;
+  top: 4px;
   left: -48px;
   width: 122px;
 }
