@@ -24,14 +24,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private static final Map<String, ItemInfo> ITEM_CATALOG = Map.ofEntries(
-            Map.entry("STRAW_HAT", new ItemInfo("밀짚모자", 20)),
-            Map.entry("RED_BOOTS", new ItemInfo("빨간 장화", 25)),
-            Map.entry("GREEN_APRON", new ItemInfo("토마토 앞치마", 25)),
-            Map.entry("TOMATO_BAG", new ItemInfo("토마토 가방", 30)),
-            Map.entry("WATERING_CAN", new ItemInfo("토마토 펫", 30)),
-            Map.entry("SMALL_SHOVEL", new ItemInfo("작은 삽", 18)),
-            Map.entry("TOMATO_HAIRPIN", new ItemInfo("토마토 머리핀", 18)),
-            Map.entry("FARMER_GLOVES", new ItemInfo("새싹 머리핀", 15))
+            Map.entry("STRAW_HAT", new ItemInfo("밀짚모자", 200)),
+            Map.entry("RED_BOOTS", new ItemInfo("빨간 장화", 100)),
+            Map.entry("GREEN_APRON", new ItemInfo("토마토 앞치마", 400)),
+            Map.entry("TOMATO_BAG", new ItemInfo("토마토 가방", 300)),
+            Map.entry("WATERING_CAN", new ItemInfo("토마토 펫", 999)),
+            Map.entry("SMALL_SHOVEL", new ItemInfo("작은 삽", 30)),
+            Map.entry("TOMATO_HAIRPIN", new ItemInfo("토마토 머리핀", 70)),
+            Map.entry("FARMER_GLOVES", new ItemInfo("새싹 머리핀", 50))
     );
 
     public UserService(

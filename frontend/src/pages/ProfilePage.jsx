@@ -30,7 +30,7 @@ const ITEM_META = {
 
 function getItemActionState(item, sunlight) {
   const meta = ITEM_META[item?.code] || null;
-  const price = Number(meta?.price ?? item?.price ?? 0);
+  const price = Number(item?.price ?? meta?.price ?? 0);
   const canPurchase = Number(sunlight || 0) >= price;
 
   if (item?.equipped) {
@@ -360,7 +360,7 @@ export default function ProfilePage() {
                   const actionState = getItemActionState(item, profile?.sunlight ?? 0);
                   const statusClass = actionState.label.replaceAll(" ", "-");
                   const itemMeta = ITEM_META[item.code];
-                  const displayPrice = itemMeta?.price ?? item.price;
+                  const displayPrice = item.price ?? itemMeta?.price;
 
                   return (
                     <article className={`item-card item-card--${statusClass}`} key={item.code}>

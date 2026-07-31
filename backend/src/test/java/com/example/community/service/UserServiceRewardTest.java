@@ -50,16 +50,16 @@ class UserServiceRewardTest {
     @Test
     void purchaseItemSpendsSunlight() {
         User user = new User("test@email.com", "encoded", "tester", null);
-        user.addSunlight(30);
+        user.addSunlight(52);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(postRepository.findByUserId(1L)).thenReturn(List.of());
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        UserProfileResponse response = userService.purchaseItem(1L, "STRAW_HAT");
+        UserProfileResponse response = userService.purchaseItem(1L, "FARMER_GLOVES");
 
-        assertThat(response.getSunlight()).isEqualTo(10);
-        assertThat(response.getPurchasedItems()).contains("STRAW_HAT");
+        assertThat(response.getSunlight()).isEqualTo(2);
+        assertThat(response.getPurchasedItems()).contains("FARMER_GLOVES");
     }
 
     @Test
