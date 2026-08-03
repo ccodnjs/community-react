@@ -8,11 +8,14 @@ export default function PostCard({ post }) {
   const views = post.viewCount ?? post.views ?? 0;
   const authorName = post.authorNickname ?? post.nickname ?? post.writerNickname ?? "작성자";
   const postImage = getImageCandidate(post.image);
+  const excerpt = post.content || "";
 
   return (
     <Link to={`/posts/${post.id}`} className="post-card">
       <div className="post-card-top">
         <h2 className="post-title">{title}</h2>
+
+        {excerpt ? <p className="post-excerpt">{excerpt}</p> : null}
 
         <div className="post-info-row">
           <div className="post-counts">
