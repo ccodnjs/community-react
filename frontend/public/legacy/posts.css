@@ -535,7 +535,7 @@ button {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   justify-items: center;
   align-items: start;
-  gap: 42px 30px;
+  gap: 82px 30px;
 }
 
 /* ==============================
@@ -686,6 +686,10 @@ button {
   cursor: pointer;
 }
 
+.post-card:has(.post-image-preview) {
+  margin-bottom: 18px;
+}
+
 .post-card-top {
   flex: 1;
 }
@@ -794,21 +798,53 @@ button {
 }
 
 .post-image-preview {
-  width: 172px;
-  height: 112px;
-  margin: 14px 0 14px;
-  padding: 7px;
+  position: absolute;
+  left: 18px;
+  bottom: -44px;
+  z-index: 3;
 
-  align-self: center;
+  width: 132px;
+  height: 104px;
+  margin: 0;
+  padding: 10px 10px 18px;
 
-  border-radius: 26px;
+  border-radius: 15px;
   background:
-    linear-gradient(to bottom, rgba(255, 253, 247, 0.95) 0%, rgba(255, 237, 213, 0.92) 100%);
-  border: 3px solid rgba(255, 248, 238, 0.78);
+    linear-gradient(90deg, rgba(91, 54, 29, 0.14) 0 2px, transparent 2px 96%, rgba(91, 54, 29, 0.16) 96% 100%),
+    linear-gradient(to bottom, #f2c57b 0%, #d8954f 54%, #a96a36 100%);
+  border: 4px solid #754323;
   box-shadow:
-    0 10px 16px rgba(78, 45, 28, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
-  transform: rotate(-1.2deg);
+    0 11px 0 #5b331c,
+    0 16px 18px rgba(73, 43, 25, 0.26),
+    inset 0 3px 0 rgba(255, 235, 183, 0.62),
+    inset 0 -4px 0 rgba(91, 51, 28, 0.2);
+  transform: rotate(-4deg);
+}
+
+.post-list > *:nth-child(even) .post-image-preview {
+  left: auto;
+  right: 18px;
+  transform: rotate(4deg);
+}
+
+.post-image-preview::before,
+.post-image-preview::after {
+  content: "";
+  position: absolute;
+  bottom: -48px;
+  width: 14px;
+  height: 52px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(to right, #70401f 0%, #9b6138 45%, #5b331c 100%);
+  box-shadow: inset 0 0 0 2px rgba(71, 38, 19, 0.22);
+}
+
+.post-image-preview::before {
+  left: 30px;
+}
+
+.post-image-preview::after {
+  right: 30px;
 }
 
 .post-list .post-thumbnail {
@@ -816,11 +852,13 @@ button {
   width: 100%;
   height: 100%;
 
-  border: 0;
-  border-radius: 16px;
+  border: 4px solid #fff3dc;
+  border-radius: 10px;
   object-fit: cover;
   background: #fff8ee;
-  box-shadow: inset 0 0 0 1px rgba(91, 57, 36, 0.08);
+  box-shadow:
+    0 4px 8px rgba(73, 43, 25, 0.22),
+    inset 0 0 0 1px rgba(91, 57, 36, 0.08);
 }
 
 .post-author,
@@ -926,8 +964,9 @@ button {
   }
 
   .post-image-preview {
-    width: 126px;
-    height: 84px;
+    width: 118px;
+    height: 92px;
+    bottom: -38px;
   }
 }
 
