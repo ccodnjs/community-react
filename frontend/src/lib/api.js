@@ -135,8 +135,11 @@ export async function fetchMyProfile(token) {
   return normalizeUser(data);
 }
 
-export async function fetchPosts(token) {
-  return request("/posts", {
+export async function fetchPosts(token, keyword = "") {
+  const normalizedKeyword = keyword.trim();
+  const query = normalizedKeyword ? `?keyword=${encodeURIComponent(normalizedKeyword)}` : "";
+
+  return request(`/posts${query}`, {
     method: "GET",
     token,
   });

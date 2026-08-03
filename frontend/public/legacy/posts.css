@@ -355,6 +355,100 @@ button {
 }
 
 /* ==============================
+   게시글 검색
+================================ */
+.post-search-form {
+  width: min(720px, 100%);
+  margin: 0 auto 18px;
+  padding: 18px 20px;
+
+  background: rgba(255, 248, 239, 0.96);
+  border: 2px solid #d6a57c;
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 20px rgba(101, 67, 42, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.post-search-label {
+  display: block;
+  margin-bottom: 10px;
+
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+  font-size: 20px;
+  color: #8b5f3b;
+  text-align: center;
+}
+
+.post-search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.post-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 18px;
+
+  border: 2px solid #e0b991;
+  border-radius: 999px;
+  outline: none;
+  background: #fffdf8;
+
+  color: #5a4030;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.post-search-input:focus {
+  border-color: #d95143;
+  box-shadow: 0 0 0 4px rgba(217, 81, 67, 0.12);
+}
+
+.post-search-button,
+.post-search-reset {
+  height: 48px;
+  padding: 0 18px;
+
+  border-radius: 999px;
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.post-search-button {
+  background: linear-gradient(to bottom, #e56d5e 0%, #d95143 100%);
+  color: #ffffff;
+  box-shadow: 0 5px 0 #b94136;
+}
+
+.post-search-reset {
+  border: 2px solid #d6a57c;
+  background: #fff3e2;
+  color: #8b5f3b;
+}
+
+.post-search-button:hover,
+.post-search-reset:hover {
+  transform: translateY(1px);
+}
+
+.search-result-message {
+  width: fit-content;
+  margin: 0 auto 20px;
+  padding: 9px 16px;
+
+  border-radius: 999px;
+  background: rgba(255, 248, 239, 0.94);
+  color: #8b5f3b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ==============================
    게시글 리스트
 ================================ */
 .post-list {
@@ -679,6 +773,20 @@ button {
   .empty-message {
     font-size: 18px;
     padding: 16px 18px;
+  }
+
+  .post-search-form {
+    padding: 16px 14px;
+  }
+
+  .post-search-row {
+    flex-direction: column;
+  }
+
+  .post-search-input,
+  .post-search-button,
+  .post-search-reset {
+    width: 100%;
   }
 
   .page::before {

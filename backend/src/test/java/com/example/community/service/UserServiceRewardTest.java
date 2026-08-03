@@ -53,7 +53,7 @@ class UserServiceRewardTest {
         user.addSunlight(52);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(postRepository.findByUserId(1L)).thenReturn(List.of());
+        when(postRepository.findByUserIdOrderByIdDesc(1L)).thenReturn(List.of());
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         UserProfileResponse response = userService.purchaseItem(1L, "FARMER_GLOVES");

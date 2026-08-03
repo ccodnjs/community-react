@@ -174,7 +174,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserProfileResponse toProfileResponse(User user) {
         List<FarmerItemResponse> itemShop = new ArrayList<>();
-        long myPostCount = postRepository.findByUserId(user.getId()).size();
+        long myPostCount = postRepository.findByUserIdOrderByIdDesc(user.getId()).size();
 
         for (Map.Entry<String, ItemInfo> entry : ITEM_CATALOG.entrySet()) {
             String code = entry.getKey();
@@ -214,14 +214,14 @@ public class UserService {
                 getGrowthStage(user),
                 new ArrayList<>(user.getPurchasedItemSet()),
                 new ArrayList<>(user.getEquippedItemSet()),
-                postRepository.findByUserId(user.getId()).size(),
+                postRepository.findByUserIdOrderByIdDesc(user.getId()).size(),
                 token
         );
     }
 
     @Transactional(readOnly = true)
     public long getMyPostCount(Long userId) {
-        return postRepository.findByUserId(userId).size();
+        return postRepository.findByUserIdOrderByIdDesc(userId).size();
     }
 
     private User findUser(Long userId) {

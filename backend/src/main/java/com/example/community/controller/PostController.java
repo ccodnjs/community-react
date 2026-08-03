@@ -38,8 +38,10 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostResponse>> getPosts() {
-        List<PostResponse> posts = postService.getPosts();
+    public ResponseEntity<List<PostResponse>> getPosts(
+            @RequestParam(required = false) String keyword
+    ) {
+        List<PostResponse> posts = postService.getPosts(keyword);
 
         return ResponseEntity.ok(posts);
     }

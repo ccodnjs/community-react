@@ -12,7 +12,6 @@ import com.example.community.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -49,8 +48,21 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostResponse> getPosts() {
-        return postRepository.findAll().stream()
-                .sorted(Comparator.comparing(Post::getId).reversed())
+        return getPosts(null);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponse> getPosts(String keyword) {
+        String normalizedKeyword = keyword == null ? "" : keyword.trim();
+
+        List<Post> posts = normalizedKeyword.isBlank()
+                ? postRepository.findAllByOrderByIdDesc()
+                : postRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrderByIdDesc(
+                        normalizedKeyword,
+                        normalizedKeyword
+                );
+
+        return posts.stream()
                 .map(this::toResponse)
                 .toList();
     }
@@ -76,8 +88,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsByUserId(Long userId) {
-        return postRepository.findByUserId(userId).stream()
-                .sorted(Comparator.comparing(Post::getId).reversed())
+        return postRepository.findByUserIdOrderByIdDesc(userId).stream()
                 .map(this::toResponse)
                 .toList();
     }

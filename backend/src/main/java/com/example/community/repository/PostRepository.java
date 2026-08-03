@@ -7,5 +7,12 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findByUserId(Long userId);
+    List<Post> findByUserIdOrderByIdDesc(Long userId);
+
+    List<Post> findAllByOrderByIdDesc();
+
+    List<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrderByIdDesc(
+            String titleKeyword,
+            String contentKeyword
+    );
 }

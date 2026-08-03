@@ -14,6 +14,8 @@ export default function PostsPage({ onlyMine = false }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   useEffect(() => {
     async function loadPosts() {
@@ -21,7 +23,7 @@ export default function PostsPage({ onlyMine = false }) {
       setErrorMessage("");
 
       try {
-        const result = await fetchPosts(token);
+        const result = await fetchPosts(token, searchKeyword);
         setPosts(Array.isArray(result) ? result : []);
       } catch (error) {
         setErrorMessage(error.message || "게시글 목록을 불러오지 못했습니다.");
@@ -31,7 +33,20 @@ export default function PostsPage({ onlyMine = false }) {
     }
 
     loadPosts();
-  }, [token]);
+  }, [searchKeyword, token]);
+
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+
+    const nextKeyword = searchInput.trim();
+    setSearchInput(nextKeyword);
+    setSearchKeyword(nextKeyword);
+  }
+
+  function handleSearchReset() {
+    setSearchInput("");
+    setSearchKeyword("");
+  }
 
   const filteredPosts = useMemo(() => {
     if (!onlyMine) {
@@ -120,11 +135,48 @@ export default function PostsPage({ onlyMine = false }) {
             {onlyMine ? "🍅 내 토마토 밭" : "🍅 토마토 목록"}
           </div>
 
+          <form className="post-search-form" onSubmit={handleSearchSubmit}>
+            <label className="post-search-label" htmlFor="postSearchInput">
+              토마토 찾기
+            </label>
+
+            <div className="post-search-row">
+              <input
+                className="post-search-input"
+                id="postSearchInput"
+                type="search"
+                value={searchInput}
+                onChange={(event) => setSearchInput(event.target.value)}
+                placeholder="제목이나 내용으로 검색해보세요"
+              />
+
+              <button className="post-search-button" type="submit">
+                검색
+              </button>
+
+              {searchKeyword ? (
+                <button className="post-search-reset" type="button" onClick={handleSearchReset}>
+                  전체 보기
+                </button>
+              ) : null}
+            </div>
+          </form>
+
+          {!isLoading && !errorMessage && searchKeyword ? (
+            <p className="search-result-message">
+              “{searchKeyword}” 검색 결과 {filteredPosts.length}개
+            </p>
+          ) : null}
+
           {isLoading ? <p className="empty-message">게시글을 불러오는 중이에요.</p> : null}
           {!isLoading && errorMessage ? <p className="empty-message">{errorMessage}</p> : null}
           {!isLoading && !errorMessage && filteredPosts.length === 0 ? (
             <p className="empty-message" id="emptyMessage">
-              {onlyMine ? "아직 내가 심은 토마토가 없어요." : "아직 심어진 토마토가 없어요. 첫 번째 토마토를 남겨보세요!"}
+              {searchKeyword
+                ? "검색 결과가 없어요. 다른 단어로 다시 찾아보세요!"
+                : onlyMine
+                  ? "아직 내가 심은 토마토가 없어요."
+                  : "아직 심어진 토마토가 없어요. 첫 번째 토마토를 남겨보세요!"}
             </p>
           ) : null}
 

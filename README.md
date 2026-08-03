@@ -9,7 +9,7 @@ React와 Spring Boot로 구현한 게임형 커뮤니티 서비스입니다. 사
 ## 프로젝트 특징
 
 - JWT 기반 로그인/회원가입 인증 흐름 구현
-- 게시글 CRUD, 댓글 CRUD, 좋아요, 조회수 기능 구현
+- 게시글 CRUD, 제목/내용 검색, 댓글 CRUD, 좋아요, 조회수 기능 구현
 - 활동 보상으로 햇빛을 지급하고, 햇빛으로 아이템을 구매/장착하는 게임형 UX 적용
 - React 정적 리소스와 Spring Boot API를 Nginx 리버스 프록시로 분리
 - React와 Spring Boot 모두 멀티스테이지 Dockerfile 적용
@@ -61,6 +61,7 @@ React와 Spring Boot로 구현한 게임형 커뮤니티 서비스입니다. 사
 - 게시글 작성
 - 게시글 상세 조회
 - 게시글 수정/삭제
+- 게시글 제목/내용 검색
 - 댓글 작성/수정/삭제
 - 좋아요
 - 조회수 증가
@@ -343,7 +344,7 @@ backend 아이템 가격을 기준으로 통일하고, frontend는 서버 응답
 
 - Docker Compose healthcheck 추가
 - GitHub Actions CI 구성
-- 게시글 검색/페이지네이션
+- 게시글 페이지네이션
 - Swagger/OpenAPI 문서화
 - RDS 적용
 - S3 이미지 업로드 적용
