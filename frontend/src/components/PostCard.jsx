@@ -25,13 +25,13 @@ export default function PostCard({ post }) {
         </div>
       </div>
 
-      <div className="post-card-bottom">
-        {postImage ? (
+      {postImage ? (
+        <div className="post-image-preview">
           <img src={postImage} alt="게시글 이미지" className="post-thumbnail" />
-        ) : (
-          <div className="post-thumbnail empty-thumbnail" />
-        )}
+        </div>
+      ) : null}
 
+      <div className="post-card-bottom">
         <span className="author-name">{authorName}</span>
       </div>
     </Link>
