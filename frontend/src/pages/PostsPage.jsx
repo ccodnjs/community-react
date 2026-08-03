@@ -7,7 +7,7 @@ import { fetchPosts } from "../lib/api";
 import { getProfileImageCandidate, getUserLabel } from "../lib/ui";
 
 export default function PostsPage({ onlyMine = false }) {
-  useLegacyPage("/legacy/posts.css?v=20260803-image-sign", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
+  useLegacyPage("/legacy/posts.css?v=20260803-signboard-image", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
 
   const navigate = useNavigate();
   const { token, user } = useAuth();

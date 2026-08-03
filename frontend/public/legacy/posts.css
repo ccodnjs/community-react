@@ -687,7 +687,7 @@ button {
 }
 
 .post-card:has(.post-image-preview) {
-  margin-bottom: 18px;
+  margin-bottom: 48px;
 }
 
 .post-card-top {
@@ -798,66 +798,56 @@ button {
 }
 
 .post-image-preview {
+  --sign-width: 152px;
+  --sign-height: 164px;
+  --photo-left: 22px;
+  --photo-top: 47px;
+  --photo-width: 108px;
+  --photo-height: 66px;
+
   position: absolute;
-  left: 18px;
-  bottom: -44px;
+  left: 6px;
+  bottom: -76px;
   z-index: 3;
 
-  width: 132px;
-  height: 104px;
+  width: var(--sign-width);
+  height: var(--sign-height);
   margin: 0;
-  padding: 10px 10px 18px;
+  padding: 0;
 
-  border-radius: 15px;
-  background:
-    linear-gradient(90deg, rgba(91, 54, 29, 0.14) 0 2px, transparent 2px 96%, rgba(91, 54, 29, 0.16) 96% 100%),
-    linear-gradient(to bottom, #f2c57b 0%, #d8954f 54%, #a96a36 100%);
-  border: 4px solid #754323;
-  box-shadow:
-    0 11px 0 #5b331c,
-    0 16px 18px rgba(73, 43, 25, 0.26),
-    inset 0 3px 0 rgba(255, 235, 183, 0.62),
-    inset 0 -4px 0 rgba(91, 51, 28, 0.2);
+  border: 0;
+  border-radius: 0;
+  background: url("/items/post-signboard.png") center / contain no-repeat;
+  box-shadow: none;
   transform: rotate(-4deg);
 }
 
 .post-list > *:nth-child(even) .post-image-preview {
   left: auto;
-  right: 18px;
+  right: 6px;
   transform: rotate(4deg);
 }
 
 .post-image-preview::before,
 .post-image-preview::after {
-  content: "";
-  position: absolute;
-  bottom: -48px;
-  width: 14px;
-  height: 52px;
-  border-radius: 0 0 999px 999px;
-  background: linear-gradient(to right, #70401f 0%, #9b6138 45%, #5b331c 100%);
-  box-shadow: inset 0 0 0 2px rgba(71, 38, 19, 0.22);
-}
-
-.post-image-preview::before {
-  left: 30px;
-}
-
-.post-image-preview::after {
-  right: 30px;
+  content: none;
 }
 
 .post-list .post-thumbnail {
-  display: block;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: var(--photo-left);
+  top: var(--photo-top);
 
-  border: 4px solid #fff3dc;
-  border-radius: 10px;
+  display: block;
+  width: var(--photo-width);
+  height: var(--photo-height);
+
+  border: 0;
+  border-radius: 12px;
   object-fit: cover;
   background: #fff8ee;
   box-shadow:
-    0 4px 8px rgba(73, 43, 25, 0.22),
+    0 3px 8px rgba(73, 43, 25, 0.24),
     inset 0 0 0 1px rgba(91, 57, 36, 0.08);
 }
 
@@ -964,9 +954,14 @@ button {
   }
 
   .post-image-preview {
-    width: 118px;
-    height: 92px;
-    bottom: -38px;
+    --sign-width: 128px;
+    --sign-height: 138px;
+    --photo-left: 19px;
+    --photo-top: 40px;
+    --photo-width: 91px;
+    --photo-height: 55px;
+
+    bottom: -64px;
   }
 }
 
