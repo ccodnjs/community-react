@@ -20,8 +20,8 @@ export default function PostCard({ post }) {
         <div className="post-info-row">
           <div className="post-counts">
             <span>좋아요 {formatCount(likes)}</span>
-            <span>댓글 {formatCount(comments)}</span>
             <span>조회수 {formatCount(views)}</span>
+            <span>댓글 {formatCount(comments)}</span>
           </div>
 
           <span className="post-date">{formatDate(post.createdAt, true)}</span>
