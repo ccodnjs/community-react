@@ -10,12 +10,14 @@ import com.example.community.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -76,5 +78,25 @@ class CommentServiceTest {
 
         then(rewardService).should().grant(2L, RewardType.COMMENT_CREATED);
         then(rewardService).should().grant(1L, RewardType.COMMENT_RECEIVED);
+    }
+
+    @Test
+    @DisplayName("답글을 작성하면 부모 댓글 번호가 저장된다")
+    void createReplyStoresParentCommentId() {
+        Post post = new Post(1L, "제목", "내용", null);
+        Comment parentComment = new Comment(1L, 1L, "원댓글");
+        Comment savedReply = new Comment(1L, 2L, "답글", 10L);
+        User replier = new User("reply@test.com", "encoded", "replier", null);
+
+        given(postRepository.findById(1L)).willReturn(Optional.of(post));
+        given(userRepository.findById(2L)).willReturn(Optional.of(replier));
+        given(commentRepository.findById(10L)).willReturn(Optional.of(parentComment));
+        given(commentRepository.save(any(Comment.class))).willReturn(savedReply);
+
+        commentService.createComment(1L, 2L, "답글", 10L);
+
+        ArgumentCaptor<Comment> commentCaptor = ArgumentCaptor.forClass(Comment.class);
+        then(commentRepository).should().save(commentCaptor.capture());
+        assertThat(commentCaptor.getValue().getParentCommentId()).isEqualTo(10L);
     }
 }

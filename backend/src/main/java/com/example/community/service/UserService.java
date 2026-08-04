@@ -2,6 +2,7 @@ package com.example.community.service;
 
 import com.example.community.domain.User;
 import com.example.community.dto.response.FarmerItemResponse;
+import com.example.community.dto.response.FarmerProfileResponse;
 import com.example.community.dto.response.LoginResponse;
 import com.example.community.dto.response.UserProfileResponse;
 import com.example.community.exception.CommunityException;
@@ -150,6 +151,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public List<FarmerProfileResponse> getFarmers() {
+        return userRepository.findAll().stream()
+                .map(this::toFarmerProfileResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public String getGrowthStage(User user) {
         int sunlight = user.getSunlight();
 
@@ -174,7 +182,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserProfileResponse toProfileResponse(User user) {
         List<FarmerItemResponse> itemShop = new ArrayList<>();
-        long myPostCount = postRepository.findByUserIdOrderByIdDesc(user.getId()).size();
+        long myPostCount = postRepository.countByUserId(user.getId());
 
         for (Map.Entry<String, ItemInfo> entry : ITEM_CATALOG.entrySet()) {
             String code = entry.getKey();
@@ -214,14 +222,26 @@ public class UserService {
                 getGrowthStage(user),
                 new ArrayList<>(user.getPurchasedItemSet()),
                 new ArrayList<>(user.getEquippedItemSet()),
-                postRepository.findByUserIdOrderByIdDesc(user.getId()).size(),
+                postRepository.countByUserId(user.getId()),
                 token
         );
     }
 
     @Transactional(readOnly = true)
     public long getMyPostCount(Long userId) {
-        return postRepository.findByUserIdOrderByIdDesc(userId).size();
+        return postRepository.countByUserId(userId);
+    }
+
+    private FarmerProfileResponse toFarmerProfileResponse(User user) {
+        return new FarmerProfileResponse(
+                user.getId(),
+                user.getNickname(),
+                user.getProfileImage(),
+                user.getSunlight(),
+                getGrowthStage(user),
+                new ArrayList<>(user.getEquippedItemSet()),
+                postRepository.countByUserId(user.getId())
+        );
     }
 
     private User findUser(Long userId) {

@@ -34,8 +34,16 @@ function consumeInitialIncreaseView(postId) {
   }
 }
 
+function getCommentId(comment) {
+  return comment.id ?? comment.commentId;
+}
+
+function getCommentParentId(comment) {
+  return comment.parentCommentId ?? comment.parentId ?? null;
+}
+
 export default function PostDetailPage() {
-  useLegacyPage("/legacy/post-detail.css", "토마토 키우기 - 게시글 상세");
+  useLegacyPage("/legacy/post-detail.css?v=20260804-replies", "토마토 키우기 - 게시글 상세");
 
   const navigate = useNavigate();
   const { postId } = useParams();
@@ -51,6 +59,9 @@ export default function PostDetailPage() {
   const [actionError, setActionError] = useState("");
   const [isLikeSubmitting, setIsLikeSubmitting] = useState(false);
   const [isCommentSubmitting, setIsCommentSubmitting] = useState(false);
+  const [isReplySubmitting, setIsReplySubmitting] = useState(false);
+  const [replyTargetId, setReplyTargetId] = useState(null);
+  const [replyDraft, setReplyDraft] = useState("");
   const [busyCommentId, setBusyCommentId] = useState(null);
 
   const currentUserId = user?.id ?? user?.userId ?? null;
@@ -161,6 +172,34 @@ export default function PostDetailPage() {
     }
   }
 
+  async function handleCreateReply(parentCommentId) {
+    setActionError("");
+
+    if (!replyDraft.trim()) {
+      setActionError("답글 내용을 입력해주세요.");
+      return;
+    }
+
+    setIsReplySubmitting(true);
+    setBusyCommentId(parentCommentId);
+
+    try {
+      await createComment(token, postId, {
+        content: replyDraft.trim(),
+        parentCommentId,
+      });
+      setReplyDraft("");
+      setReplyTargetId(null);
+      await refreshProfile();
+      await refreshAllState();
+    } catch (error) {
+      setActionError(error.message || "답글 등록에 실패했습니다.");
+    } finally {
+      setIsReplySubmitting(false);
+      setBusyCommentId(null);
+    }
+  }
+
   async function handleUpdateComment(commentId) {
     setActionError("");
 
@@ -226,6 +265,90 @@ export default function PostDetailPage() {
   const authorName = post.authorNickname || "작성자";
   const authorProfileImage = getProfileImageCandidate(post.authorProfileImage);
   const headerProfileImage = getProfileImageCandidate(user?.profileImage);
+  const repliesByParentId = comments.reduce((replyMap, comment) => {
+    const parentCommentId = getCommentParentId(comment);
+
+    if (parentCommentId !== null) {
+      const mapKey = String(parentCommentId);
+      replyMap.set(mapKey, [...(replyMap.get(mapKey) || []), comment]);
+    }
+
+    return replyMap;
+  }, new Map());
+  const rootComments = comments.filter((comment) => getCommentParentId(comment) === null);
+
+  function renderCommentItem(comment, { isReply = false } = {}) {
+    const commentId = getCommentId(comment);
+    const commentUserId = comment.userId ?? comment.authorId ?? comment.writerId;
+    const isMyComment = String(commentUserId ?? "") === String(currentUserId ?? "");
+    const commentAuthorName = comment.authorNickname || comment.nickname || "작성자";
+    const commentProfileImage = getProfileImageCandidate(comment.authorProfileImage || comment.profileImage);
+    const isEditing = editingCommentId === commentId;
+
+    return (
+      <div className={`comment-item${isReply ? " reply-item" : ""}`} key={commentId}>
+        <div className="comment-top-row">
+          <div className="comment-author-box">
+            {commentProfileImage ? (
+              <img src={commentProfileImage} alt="댓글 작성자 프로필" className="comment-author-profile" />
+            ) : (
+              <span className="comment-author-profile author-profile--fallback">{getUserLabel(commentAuthorName)}</span>
+            )}
+            <strong className="comment-author-name">{commentAuthorName}</strong>
+            <span className="comment-date">{formatDate(comment.createdAt, false)}</span>
+          </div>
+
+          {!isReply || isMyComment ? (
+            <div className="comment-button-box">
+              {!isReply && !isEditing ? (
+                <button
+                  className="outline-button comment-reply-button"
+                  type="button"
+                  onClick={() => {
+                    setActionError("");
+                    setEditingCommentId(null);
+                    setEditingContent("");
+                    setReplyDraft("");
+                    setReplyTargetId(replyTargetId === commentId ? null : commentId);
+                  }}
+                >
+                  {replyTargetId === commentId ? "닫기" : "답글"}
+                </button>
+              ) : null}
+
+              {isMyComment ? (
+                isEditing ? (
+                  <>
+                    <button className="outline-button comment-edit-button" type="button" onClick={() => handleUpdateComment(commentId)} disabled={busyCommentId === commentId}>
+                      저장
+                    </button>
+                    <button className="outline-button comment-delete-button" type="button" onClick={() => { setEditingCommentId(null); setEditingContent(""); }}>
+                      취소
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="outline-button comment-edit-button" type="button" onClick={() => { setReplyTargetId(null); setReplyDraft(""); setEditingCommentId(commentId); setEditingContent(comment.content || ""); }}>
+                      수정
+                    </button>
+                    <button className="outline-button comment-delete-button" type="button" onClick={() => handleDeleteComment(commentId)} disabled={busyCommentId === commentId}>
+                      삭제
+                    </button>
+                  </>
+                )
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+
+        {isEditing ? (
+          <textarea className="comment-input comment-edit-input" value={editingContent} onChange={(event) => setEditingContent(event.target.value)} />
+        ) : (
+          <p className="comment-content">{comment.content || ""}</p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="page">
@@ -360,59 +483,52 @@ export default function PostDetailPage() {
           {actionError ? <p className="helper-text detail-helper-text">{actionError}</p> : null}
 
           <section className="comment-list" id="commentList">
-            {comments.map((comment) => {
-              const commentId = comment.id || comment.commentId;
-              const commentUserId = comment.userId || comment.authorId || comment.writerId;
-              const isMyComment = String(commentUserId ?? "") === String(currentUserId ?? "");
-              const commentAuthorName = comment.authorNickname || comment.nickname || "작성자";
-              const commentProfileImage = getProfileImageCandidate(comment.authorProfileImage || comment.profileImage);
+            {rootComments.length ? (
+              rootComments.map((comment) => {
+                const commentId = getCommentId(comment);
+                const replies = repliesByParentId.get(String(commentId)) || [];
+                const commentAuthorName = comment.authorNickname || comment.nickname || "작성자";
 
-              return (
-                <div className="comment-item" key={commentId}>
-                  <div className="comment-top-row">
-                    <div className="comment-author-box">
-                      {commentProfileImage ? (
-                        <img src={commentProfileImage} alt="댓글 작성자 프로필" className="comment-author-profile" />
-                      ) : (
-                        <span className="comment-author-profile author-profile--fallback">{getUserLabel(commentAuthorName)}</span>
-                      )}
-                      <strong className="comment-author-name">{commentAuthorName}</strong>
-                      <span className="comment-date">{formatDate(comment.createdAt, false)}</span>
-                    </div>
+                return (
+                  <div className="comment-thread" key={commentId}>
+                    {renderCommentItem(comment)}
 
-                    {isMyComment ? (
-                      <div className="comment-button-box">
-                        {editingCommentId === commentId ? (
-                          <>
-                            <button className="outline-button comment-edit-button" type="button" onClick={() => handleUpdateComment(commentId)} disabled={busyCommentId === commentId}>
-                              저장
-                            </button>
-                            <button className="outline-button comment-delete-button" type="button" onClick={() => { setEditingCommentId(null); setEditingContent(""); }}>
-                              취소
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button className="outline-button comment-edit-button" type="button" onClick={() => { setEditingCommentId(commentId); setEditingContent(comment.content || ""); }}>
-                              수정
-                            </button>
-                            <button className="outline-button comment-delete-button" type="button" onClick={() => handleDeleteComment(commentId)} disabled={busyCommentId === commentId}>
-                              삭제
-                            </button>
-                          </>
-                        )}
+                    {replyTargetId === commentId ? (
+                      <div className="reply-write-box">
+                        <textarea
+                          className="comment-input reply-input"
+                          placeholder={`${commentAuthorName}님에게 답글을 남겨주세요.`}
+                          value={replyDraft}
+                          onChange={(event) => setReplyDraft(event.target.value)}
+                        />
+
+                        <div className="reply-button-row">
+                          <button className="outline-button" type="button" onClick={() => { setReplyTargetId(null); setReplyDraft(""); }}>
+                            취소
+                          </button>
+                          <button
+                            className={`comment-submit-button${replyDraft.trim() ? " active" : ""}`}
+                            type="button"
+                            disabled={!replyDraft.trim() || isReplySubmitting}
+                            onClick={() => handleCreateReply(commentId)}
+                          >
+                            {isReplySubmitting && busyCommentId === commentId ? "등록 중..." : "답글 물 주기"}
+                          </button>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {replies.length ? (
+                      <div className="reply-list">
+                        {replies.map((reply) => renderCommentItem(reply, { isReply: true }))}
                       </div>
                     ) : null}
                   </div>
-
-                  {editingCommentId === commentId ? (
-                    <textarea className="comment-input" value={editingContent} onChange={(event) => setEditingContent(event.target.value)} />
-                  ) : (
-                    <p className="comment-content">{comment.content || ""}</p>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <p className="comment-empty">아직 댓글이 없어요. 첫 물을 줘보세요!</p>
+            )}
           </section>
         </section>
       </main>

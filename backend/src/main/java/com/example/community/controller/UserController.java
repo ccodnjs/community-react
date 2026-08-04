@@ -5,6 +5,7 @@ import com.example.community.dto.request.LoginRequest;
 import com.example.community.dto.request.PasswordUpdateRequest;
 import com.example.community.dto.request.SignupRequest;
 import com.example.community.dto.request.UserUpdateRequest;
+import com.example.community.dto.response.FarmerProfileResponse;
 import com.example.community.dto.response.LoginResponse;
 import com.example.community.dto.response.PostResponse;
 import com.example.community.dto.response.UserProfileResponse;
@@ -61,6 +62,11 @@ public class UserController {
         // JWT는 서버가 상태를 안 들고 있으므로, 로그아웃은 프론트에서 토큰을 지우는 것으로 처리
         String message = userService.logout(userId);
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<FarmerProfileResponse>> getFarmers() {
+        return ResponseEntity.ok(userService.getFarmers());
     }
 
     @GetMapping("/me")

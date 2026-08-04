@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatCount, formatDate, getImageCandidate } from "../lib/ui";
+import { formatCount, formatDate, getImageCandidate, getProfileImageCandidate, getUserLabel } from "../lib/ui";
 
 export default function PostCard({ post }) {
   const title = post.title || "제목 없음";
@@ -7,15 +7,13 @@ export default function PostCard({ post }) {
   const comments = post.commentCount ?? post.comments ?? 0;
   const views = post.viewCount ?? post.views ?? 0;
   const authorName = post.authorNickname ?? post.nickname ?? post.writerNickname ?? "작성자";
+  const authorProfileImage = getProfileImageCandidate(post.authorProfileImage ?? post.profileImage);
   const postImage = getImageCandidate(post.image);
-  const excerpt = post.content || "";
 
   return (
     <Link to={`/posts/${post.id}`} className="post-card">
       <div className="post-card-top">
         <h2 className="post-title">{title}</h2>
-
-        {excerpt ? <p className="post-excerpt">{excerpt}</p> : null}
 
         <div className="post-info-row">
           <div className="post-counts">
@@ -25,6 +23,15 @@ export default function PostCard({ post }) {
           </div>
 
           <span className="post-date">{formatDate(post.createdAt, true)}</span>
+
+          <div className="post-author">
+            {authorProfileImage ? (
+              <img src={authorProfileImage} alt={`${authorName} 프로필`} />
+            ) : (
+              <span className="post-author-fallback">{getUserLabel(authorName)}</span>
+            )}
+            <span className="author-name">{authorName}</span>
+          </div>
         </div>
       </div>
 
@@ -33,10 +40,6 @@ export default function PostCard({ post }) {
           <img src={postImage} alt="게시글 이미지" className="post-thumbnail" />
         </div>
       ) : null}
-
-      <div className="post-card-bottom">
-        <span className="author-name">{authorName}</span>
-      </div>
     </Link>
   );
 }

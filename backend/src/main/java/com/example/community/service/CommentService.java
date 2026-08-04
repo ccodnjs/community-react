@@ -36,13 +36,19 @@ public class CommentService {
 
     @Transactional
     public CommentResponse createComment(Long postId, Long userId, String content) {
+        return createComment(postId, userId, content, null);
+    }
+
+    @Transactional
+    public CommentResponse createComment(Long postId, Long userId, String content, Long parentCommentId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CommunityException(ErrorCode.POST_NOT_FOUND));
 
         userRepository.findById(userId)
                 .orElseThrow(() -> new CommunityException(ErrorCode.USER_NOT_FOUND));
 
-        Comment comment = new Comment(postId, userId, content.trim());
+        Long normalizedParentCommentId = resolveParentCommentId(postId, parentCommentId);
+        Comment comment = new Comment(postId, userId, content.trim(), normalizedParentCommentId);
         Comment savedComment = commentRepository.save(comment);
 
         if (!post.getUserId().equals(userId)) {
@@ -55,7 +61,7 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public List<CommentResponse> getCommentsByPostId(Long postId) {
-        return commentRepository.findByPostId(postId).stream()
+        return commentRepository.findByPostIdOrderByIdAsc(postId).stream()
                 .map(this::toResponse)
                 .toList();
     }
@@ -83,9 +89,29 @@ public class CommentService {
             throw new CommunityException(ErrorCode.FORBIDDEN_ACTION);
         }
 
+        commentRepository.deleteByParentCommentId(commentId);
         commentRepository.delete(comment);
 
         return "댓글이 삭제되었습니다.";
+    }
+
+    private Long resolveParentCommentId(Long postId, Long parentCommentId) {
+        if (parentCommentId == null) {
+            return null;
+        }
+
+        Comment parentComment = commentRepository.findById(parentCommentId)
+                .orElseThrow(() -> new CommunityException(ErrorCode.COMMENT_NOT_FOUND));
+
+        if (!parentComment.getPostId().equals(postId)) {
+            throw new CommunityException(ErrorCode.COMMENT_NOT_FOUND);
+        }
+
+        if (parentComment.getParentCommentId() != null) {
+            return parentComment.getParentCommentId();
+        }
+
+        return parentCommentId;
     }
 
     private CommentResponse toResponse(Comment comment) {
@@ -95,6 +121,7 @@ public class CommentService {
                 comment.getId(),
                 comment.getPostId(),
                 comment.getUserId(),
+                comment.getParentCommentId(),
                 comment.getContent(),
                 comment.getCreatedAt(),
                 author == null ? "작성자" : author.getNickname(),

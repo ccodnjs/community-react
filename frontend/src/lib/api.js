@@ -82,6 +82,7 @@ function normalizeUser(source) {
     sunlight: source.sunlight ?? source.point ?? 0,
     growthStage: source.growthStage ?? source.tomatoLevel ?? source.level ?? "",
     myPostCount: source.myPostCount ?? source.postCount ?? source.postsCount ?? 0,
+    equippedItems: Array.isArray(source.equippedItems) ? source.equippedItems : [],
     itemShop: Array.isArray(source.itemShop) ? source.itemShop : [],
   };
 }
@@ -133,6 +134,15 @@ export async function fetchMyProfile(token) {
   });
 
   return normalizeUser(data);
+}
+
+export async function fetchFarmers(token) {
+  const data = await request("/users", {
+    method: "GET",
+    token,
+  });
+
+  return Array.isArray(data) ? data.map(normalizeUser) : [];
 }
 
 export async function fetchPosts(token, keyword = "") {

@@ -9,6 +9,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByUserIdOrderByIdDesc(Long userId);
 
+    long countByUserId(Long userId);
+
     List<Post> findAllByOrderByIdDesc();
 
     List<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCaseOrderByIdDesc(

@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -116,7 +115,6 @@ class UserServiceTest {
         given(userRepository.findById(1L)).willReturn(Optional.of(user));
         given(passwordEncoder.matches("CurrentPassword123!", "encoded-password")).willReturn(true);
         given(passwordEncoder.encode("NewPassword123!")).willReturn("new-encoded-password");
-        given(postRepository.findByUserIdOrderByIdDesc(1L)).willReturn(List.of());
         given(userRepository.save(any(User.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         userService.updatePassword(1L, "CurrentPassword123!", "NewPassword123!");

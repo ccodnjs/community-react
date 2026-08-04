@@ -209,10 +209,13 @@ button {
    소개 영역
 ================================ */
 .intro-section {
+  position: relative;
   width: 100%;
 
   display: flex;
+  align-items: flex-end;
   justify-content: center;
+  gap: 18px;
 }
 
 .intro-card {
@@ -300,6 +303,202 @@ button {
 .garden-button:active {
   transform: translateY(5px);
   box-shadow: 0 2px 0 #b94136;
+}
+
+.intro-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.garden-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 가입한 사용자 목록으로 가는 허수아비 링크 */
+.farmers-scarecrow-button {
+  position: relative;
+  width: 134px;
+  min-width: 134px;
+  height: 184px;
+  padding: 0;
+  margin-bottom: -10px;
+
+  filter: drop-shadow(0 12px 10px rgba(90, 54, 27, 0.2));
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.farmers-scarecrow-button:hover {
+  transform: translateY(-4px) rotate(-1.5deg);
+  filter: drop-shadow(0 15px 12px rgba(90, 54, 27, 0.25));
+}
+
+.farmers-scarecrow-button:active {
+  transform: translateY(2px) rotate(1deg);
+}
+
+.scarecrow-bubble {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+
+  width: max-content;
+  max-width: 126px;
+  padding: 9px 12px;
+
+  transform: translateX(-50%);
+  border: 3px solid #9b6138;
+  border-radius: 16px;
+  background: linear-gradient(to bottom, #fff8de 0%, #f6d696 100%);
+  box-shadow:
+    0 5px 0 #7a4728,
+    inset 0 2px 0 rgba(255, 255, 255, 0.75);
+
+  color: #704729;
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+  font-size: 16px;
+  line-height: 1.12;
+}
+
+.scarecrow-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%) rotate(45deg);
+  border-right: 3px solid #9b6138;
+  border-bottom: 3px solid #9b6138;
+  background: #f6d696;
+}
+
+.scarecrow-figure {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 104px;
+  height: 148px;
+  transform: translateX(-50%);
+}
+
+.scarecrow-stick {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 10px;
+  height: 86px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(to right, #7a4728 0%, #b27139 48%, #6b3b21 100%);
+  box-shadow: inset 0 0 0 2px rgba(87, 48, 25, 0.2);
+}
+
+.scarecrow-arm {
+  position: absolute;
+  left: 16px;
+  top: 78px;
+  z-index: 1;
+  width: 72px;
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #87512e 0%, #b46b36 100%);
+  transform: rotate(-5deg);
+}
+
+.scarecrow-body {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  z-index: 2;
+  width: 48px;
+  height: 56px;
+  transform: translateX(-50%);
+  border: 3px solid #7d4e2f;
+  border-radius: 12px 12px 22px 22px;
+  background:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.18) 0 20%, transparent 20% 100%),
+    linear-gradient(to bottom, #f1b34f 0%, #cf7d36 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 237, 172, 0.72),
+    0 4px 0 rgba(93, 51, 27, 0.22);
+}
+
+.scarecrow-body::before,
+.scarecrow-body::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  width: 12px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(101, 63, 36, 0.28);
+}
+
+.scarecrow-body::before {
+  left: 8px;
+}
+
+.scarecrow-body::after {
+  right: 8px;
+}
+
+.scarecrow-head {
+  position: absolute;
+  left: 50%;
+  top: 38px;
+  z-index: 3;
+  width: 44px;
+  height: 42px;
+  transform: translateX(-50%);
+  border: 3px solid #855532;
+  border-radius: 50% 50% 45% 45%;
+  background:
+    radial-gradient(circle at 32% 42%, #5d351e 0 2px, transparent 3px),
+    radial-gradient(circle at 68% 42%, #5d351e 0 2px, transparent 3px),
+    linear-gradient(to bottom, #f8d480 0%, #e5a84c 100%);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 248, 193, 0.62),
+    0 4px 0 rgba(96, 55, 31, 0.18);
+}
+
+.scarecrow-head::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 16px;
+  height: 7px;
+  transform: translateX(-50%);
+  border-bottom: 3px solid #794627;
+  border-radius: 0 0 999px 999px;
+}
+
+.scarecrow-hat {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  z-index: 4;
+  width: 68px;
+  height: 22px;
+  transform: translateX(-50%) rotate(-4deg);
+  border-radius: 999px 999px 8px 8px;
+  background: linear-gradient(to bottom, #80623a 0%, #4f341f 100%);
+  box-shadow: 0 4px 0 rgba(70, 41, 23, 0.26);
+}
+
+.scarecrow-hat::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: 12px;
+  width: 32px;
+  height: 22px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(to bottom, #9a7545 0%, #5d3d25 100%);
 }
 
 /* ==============================
@@ -552,7 +751,7 @@ button {
   max-width: 320px;
   min-height: 332px;
 
-  padding: 56px 24px 28px;
+  padding: 68px 26px 86px;
 
   border-radius: 44% 44% 48% 48% / 38% 38% 56% 56%;
   border: 2px solid var(--tomato-border);
@@ -687,11 +886,15 @@ button {
 }
 
 .post-card:has(.post-image-preview) {
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
 
 .post-card-top {
   flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ==============================
@@ -701,13 +904,16 @@ button {
 .post-title,
 .post-list > * h2,
 .post-list > * h3 {
-  margin: 0 0 10px;
+  width: min(230px, 100%);
+  margin: 0 auto 18px;
 
   font-size: 25px;
   font-weight: 400;
   color: #fff8ee;
   line-height: 1.25;
   letter-spacing: -0.3px;
+  text-align: center;
+  text-shadow: 0 2px 0 rgba(91, 57, 36, 0.16);
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -732,42 +938,29 @@ button {
 }
 
 .post-list > * .post-excerpt {
-  width: 100%;
-  margin: 0 0 13px;
-  padding: 10px 12px;
-
-  border: 2px solid rgba(255, 248, 238, 0.54);
-  border-radius: 18px;
-  background: rgba(255, 248, 238, 0.18);
-
-  color: rgba(255, 253, 247, 0.94);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.45;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: none;
 }
 
 .post-info-row {
+  width: min(230px, 100%);
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
+  align-items: center;
+  gap: 9px;
+  margin-top: 2px;
 }
 
 .post-counts {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  justify-content: center;
+  gap: 7px;
 }
 
 .post-counts span,
 .post-date {
   width: fit-content;
-  padding: 5px 9px;
+  padding: 6px 10px;
 
   border-radius: 999px;
   background: rgba(255, 248, 238, 0.82);
@@ -807,7 +1000,7 @@ button {
 
   position: absolute;
   left: 6px;
-  bottom: -76px;
+  bottom: -86px;
   z-index: 3;
 
   width: var(--sign-width);
@@ -856,13 +1049,19 @@ button {
 .writer-info {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 7px;
 
-  margin-top: 12px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0;
+  padding: 5px 11px 5px 6px;
 
+  border-radius: 999px;
+  background: rgba(255, 248, 238, 0.76);
   font-size: 14px;
   font-weight: 700;
-  color: rgba(255, 248, 238, 0.95);
+  color: rgba(70, 48, 35, 0.84);
 }
 
 .post-card-bottom {
@@ -873,13 +1072,10 @@ button {
 }
 
 .author-name {
-  padding: 6px 13px;
-
-  border-radius: 999px;
-  background: rgba(255, 248, 238, 0.78);
   font-size: 15px;
   font-weight: 800;
-  color: rgba(70, 48, 35, 0.82);
+  color: inherit;
+  white-space: nowrap;
 }
 
 .post-author img,
@@ -892,6 +1088,23 @@ button {
   object-fit: cover;
   background-color: rgba(255, 255, 255, 0.35);
   border: 2px solid rgba(255, 255, 255, 0.45);
+}
+
+.post-author-fallback {
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.36);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+
+  color: rgba(70, 48, 35, 0.84);
+  font-size: 13px;
+  font-weight: 900;
 }
 
 /* ==============================
@@ -935,6 +1148,12 @@ button {
     border-radius: 0 0 24px 24px;
   }
 
+  .intro-section {
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+  }
+
   .intro-title {
     font-size: 32px;
   }
@@ -943,14 +1162,24 @@ button {
     font-size: 16px;
   }
 
+  .farmers-scarecrow-button {
+    margin-bottom: 4px;
+    transform: translateY(-4px);
+  }
+
+  .farmers-scarecrow-button:hover {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+
   .post-list {
     grid-template-columns: 1fr;
-    gap: 34px;
+    gap: 88px;
   }
 
   .post-list > * {
     max-width: 340px;
-    min-height: 278px;
+    min-height: 318px;
+    padding-bottom: 92px;
   }
 
   .post-image-preview {
@@ -961,7 +1190,7 @@ button {
     --photo-width: 91px;
     --photo-height: 55px;
 
-    bottom: -64px;
+    bottom: -78px;
   }
 }
 
@@ -1026,16 +1255,4 @@ button {
   .page::before {
     inset: 104px 0 28% 0;
   }
-}
-
-.intro-button-row {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 28px;
-}
-
-.garden-button {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

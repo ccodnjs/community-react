@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Jua", "Gowun Dodum", sans-serif;
+  color: #5a3d2b;
+  background-color: #f5d7ba;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(219, 166, 121, 0.35) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(219, 166, 121, 0.35) 2px, transparent 2px),
+    linear-gradient(to bottom, #f6ddc5 0%, #f6ddc5 56%, #9b6637 56%, #8a572d 100%);
+  background-size: 74px 74px, 74px 74px, auto;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff7ed;
+  border-bottom: 2px solid #e0b286;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(980px, calc(100% - 32px));
+  height: 84px;
+  margin: 0 auto;
+}
+
+.header-title {
+  margin: 0;
+  color: #ba4234;
+  font-size: clamp(30px, 5vw, 44px);
+  font-weight: 400;
+}
+
+.header-title::before {
+  content: "🍅 ";
+}
+
+.header-title::after {
+  content: " 🌿";
+  font-size: 0.7em;
+}
+
+.back-button,
+.profile-button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #daa57a;
+  border-radius: 50%;
+  background: #fffaf0;
+  color: #bd7b4c;
+  font-size: 28px;
+  box-shadow: 0 4px 0 rgba(167, 96, 45, 0.18);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-fallback {
+  display: grid;
+  place-items: center;
+  background: #e76f5e;
+  color: #fff;
+}
+
+.farmers-main {
+  width: min(1080px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 58px 0 96px;
+}
+
+.farmers-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 44px 28px 38px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 210, 114, 0.55) 0 38px, transparent 39px),
+    linear-gradient(135deg, #fff9ee 0%, #fff2dc 100%);
+  border: 3px solid #d6a06f;
+  border-radius: 34px;
+  box-shadow: 0 12px 0 rgba(128, 73, 35, 0.25);
+}
+
+.farmers-label {
+  display: inline-flex;
+  margin: 0 0 16px;
+  padding: 8px 20px;
+  border: 2px solid #e3ac76;
+  border-radius: 999px;
+  background: #ffe3bd;
+  color: #9a653e;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.farmers-title {
+  margin: 0;
+  color: #5b3928;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 400;
+}
+
+.farmers-description {
+  margin: 14px 0 0;
+  color: #856149;
+  font-family: "Gowun Dodum", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.farmers-action-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.farmers-primary-button,
+.farmers-secondary-button {
+  min-width: 178px;
+  height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 6px 0 rgba(128, 73, 35, 0.45);
+}
+
+.farmers-primary-button {
+  background: linear-gradient(to bottom, #e86f5f, #d94b3f);
+}
+
+.farmers-secondary-button {
+  background: linear-gradient(to bottom, #88bb57, #639a37);
+}
+
+.farmers-board {
+  margin-top: 46px;
+}
+
+.farmers-board-title {
+  width: fit-content;
+  margin: 0 auto 24px;
+  padding: 12px 24px;
+  border: 3px solid #cf985f;
+  border-radius: 999px;
+  background: #fff5e5;
+  color: #805337;
+  font-size: 24px;
+}
+
+.farmers-message {
+  margin: 24px auto;
+  padding: 24px;
+  border: 2px dashed #d49a68;
+  border-radius: 24px;
+  background: rgba(255, 248, 235, 0.88);
+  text-align: center;
+  font-size: 22px;
+}
+
+.farmer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.farmer-card {
+  position: relative;
+  min-height: 310px;
+  padding: 28px 22px 24px;
+  border: 3px solid #cf8f5a;
+  border-radius: 38px;
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.35) 0 36px, transparent 37px),
+    linear-gradient(150deg, #ef705c 0%, #dc5548 100%);
+  color: #fff8ec;
+  box-shadow: inset 0 -8px 0 rgba(131, 56, 37, 0.16), 0 12px 0 rgba(95, 57, 32, 0.24);
+}
+
+.farmer-card:nth-child(3n + 1) {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.35) 0 36px, transparent 37px),
+    linear-gradient(150deg, #94c860 0%, #6ea947 100%);
+}
+
+.farmer-card:nth-child(3n + 2) {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.34) 0 36px, transparent 37px),
+    linear-gradient(150deg, #f0785f 0%, #df624f 100%);
+}
+
+.farmer-card.mine {
+  outline: 5px solid rgba(255, 226, 143, 0.8);
+}
+
+.mine-ribbon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff4d2;
+  color: #8f5a31;
+  font-size: 15px;
+}
+
+.farmer-avatar {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 18px;
+  border: 5px solid rgba(255, 246, 221, 0.92);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 7px 0 rgba(90, 53, 29, 0.2);
+}
+
+.farmer-avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.farmer-avatar-fallback {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 34px;
+}
+
+.farmer-info {
+  text-align: center;
+}
+
+.farmer-name {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.farmer-stage {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 247, 226, 0.9);
+  color: #895a38;
+  font-size: 16px;
+}
+
+.farmer-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.farmer-stats span,
+.farmer-item-chip,
+.farmer-empty-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 247, 226, 0.88);
+  color: #74492f;
+  font-family: "Gowun Dodum", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.farmer-items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    height: 72px;
+  }
+
+  .back-button,
+  .profile-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .farmers-main {
+    padding-top: 34px;
+  }
+
+  .farmers-hero {
+    padding: 34px 18px 30px;
+  }
+}

@@ -30,7 +30,8 @@ public class CommentController {
         CommentResponse comment = commentService.createComment(
                 postId,
                 userId,
-                request.getContent()
+                request.getContent(),
+                request.getParentCommentId()
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(comment);

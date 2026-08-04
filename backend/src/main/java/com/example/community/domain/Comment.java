@@ -19,6 +19,7 @@ public class Comment {
 
     private Long postId;
     private Long userId;
+    private Long parentCommentId;
     private String content;
     private String createdAt;
 
@@ -26,8 +27,13 @@ public class Comment {
     }
 
     public Comment(Long postId, Long userId, String content) {
+        this(postId, userId, content, null);
+    }
+
+    public Comment(Long postId, Long userId, String content, Long parentCommentId) {
         this.postId = postId;
         this.userId = userId;
+        this.parentCommentId = parentCommentId;
         this.content = content;
         this.createdAt = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -47,6 +53,10 @@ public class Comment {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Long getParentCommentId() {
+        return parentCommentId;
     }
 
     public String getContent() {

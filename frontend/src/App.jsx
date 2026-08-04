@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
+import FarmersPage from "./pages/FarmersPage";
 import LoginPage from "./pages/LoginPage";
 import MyPostsPage from "./pages/MyPostsPage";
 import PasswordEditPage from "./pages/PasswordEditPage";
@@ -69,6 +70,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <MyPostsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/farmers"
+        element={
+          <ProtectedRoute>
+            <FarmersPage />
           </ProtectedRoute>
         }
       />

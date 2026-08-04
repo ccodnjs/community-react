@@ -5,6 +5,7 @@ public class CommentResponse {
     private final Long id;
     private final Long postId;
     private final Long userId;
+    private final Long parentCommentId;
     private final String content;
     private final String createdAt;
     private final String authorNickname;
@@ -14,6 +15,7 @@ public class CommentResponse {
             Long id,
             Long postId,
             Long userId,
+            Long parentCommentId,
             String content,
             String createdAt,
             String authorNickname,
@@ -22,6 +24,7 @@ public class CommentResponse {
         this.id = id;
         this.postId = postId;
         this.userId = userId;
+        this.parentCommentId = parentCommentId;
         this.content = content;
         this.createdAt = createdAt;
         this.authorNickname = authorNickname;
@@ -38,6 +41,10 @@ public class CommentResponse {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Long getParentCommentId() {
+        return parentCommentId;
     }
 
     public String getContent() {

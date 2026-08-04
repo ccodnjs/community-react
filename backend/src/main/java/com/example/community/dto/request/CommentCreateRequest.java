@@ -7,7 +7,13 @@ public class CommentCreateRequest {
     @NotBlank(message = "댓글 내용을 입력해주세요.")
     private String content;
 
+    private Long parentCommentId;
+
     public String getContent() {
         return content;
+    }
+
+    public Long getParentCommentId() {
+        return parentCommentId;
     }
 }

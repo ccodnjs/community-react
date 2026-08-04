@@ -7,7 +7,7 @@ import { fetchPosts } from "../lib/api";
 import { getProfileImageCandidate, getUserLabel } from "../lib/ui";
 
 export default function PostsPage({ onlyMine = false }) {
-  useLegacyPage("/legacy/posts.css?v=20260803-signboard-image", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
+  useLegacyPage("/legacy/posts.css?v=20260804-scarecrow-link", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
 
   const navigate = useNavigate();
   const { token, user } = useAuth();
@@ -128,6 +128,17 @@ export default function PostsPage({ onlyMine = false }) {
               </button>
             </div>
           </div>
+
+          <button className="farmers-scarecrow-button" type="button" onClick={() => navigate("/farmers")} aria-label="토마토 밭 구경하기">
+            <span className="scarecrow-bubble">토마토 밭 구경</span>
+            <span className="scarecrow-figure" aria-hidden="true">
+              <span className="scarecrow-hat" />
+              <span className="scarecrow-head" />
+              <span className="scarecrow-arm" />
+              <span className="scarecrow-body" />
+              <span className="scarecrow-stick" />
+            </span>
+          </button>
         </section>
 
         <section className="post-list-section">
