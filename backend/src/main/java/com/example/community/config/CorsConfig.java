@@ -18,6 +18,10 @@ public class CorsConfig {
                         .allowedOriginPatterns(
                                 "http://127.0.0.1:*",
                                 "http://localhost:*",
+                                "http://13.125.50.220",
+                                "https://13.125.50.220",
+                                "http://13-125-50-220.sslip.io",
+                                "https://13-125-50-220.sslip.io",
                                 "null"
                         )
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
