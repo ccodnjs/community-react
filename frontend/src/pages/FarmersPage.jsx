@@ -42,7 +42,7 @@ function EquippedItems({ items }) {
 }
 
 export default function FarmersPage() {
-  useLegacyPage("/legacy/farmers.css?v=20260804-farmers", "토마토 키우기 - 토마토 밭 구경하기");
+  useLegacyPage("/legacy/farmers.css?v=20260805-avatar", "토마토 키우기 - 토마토 밭 구경하기");
 
   const navigate = useNavigate();
   const { token, user } = useAuth();

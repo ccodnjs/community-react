@@ -6,8 +6,45 @@ import useLegacyPage from "../hooks/useLegacyPage";
 import { fetchPosts } from "../lib/api";
 import { getProfileImageCandidate, getUserLabel } from "../lib/ui";
 
+const INTRO_MESSAGES = [
+  ["치킨 먹은 거 아닙니다.", "토마토 비료 줬습니다."],
+  ["오늘도 다이어트 실패.", "내일의 내가 책임지겠지."],
+  ["운동은 안 했지만", "배달은 빨랐습니다."],
+  ["칼로리는 기록 안 하면", "없는 거 아닌가요?"],
+  ["오늘 먹은 건", "다 토마토 성장에 투자했습니다."],
+  ["침대가 절 먼저 안 놔줬어요."],
+  ["일어나려고 했는데", "이불이 불법 감금 중입니다."],
+  ["오늘도 생산적인 하루였습니다."],
+  ["알람이 울렸습니다.", "무시했습니다."],
+  ["내일의 저를 믿습니다.", "오늘의 저는 쉽니다."],
+  ["오늘도 배는 불렀는데", "입은 심심했습니다."],
+  ["배달앱이 먼저", "저를 찾아왔습니다."],
+  ["야식은 죄가 없습니다.", "시간이 문제죠."],
+  ["토마토도 가끔은", "치킨이 먹고 싶습니다."],
+  ["입은 그만 먹자는데", "손이 말을 안 듣네요."],
+  ["오늘도 아무것도 안 했는데", "피곤했습니다."],
+  ["할 일은 많은데", "의욕이 퇴근했습니다."],
+  ["계획은 세웠습니다.", "실행은 내일 합니다."],
+  ["오늘도 살아남았으니", "성공입니다."],
+  ["월요일이 또 왔네요.", "신고합니다."],
+  ["릴스 하나만 보려고 했습니다.", "해가 졌습니다."],
+  ["이번 달은 아껴 쓰겠습니다.", "할인은 안 사면 손해잖아요?"],
+  ["통장은 울고 있는데", "장바구니는 웃고 있습니다."],
+  ["돈은 사라졌지만", "택배는 옵니다."],
+  ["익은 건 토마토인데", "타는 건 내 통장."],
+  ["오늘도 물 대신", "커피를 먹었습니다."],
+  ["토마토도 현생이 힘듭니다."],
+  ["오늘은 광합성 대신", "침대 합성했습니다."],
+  ["토마토도 출근하기 싫어요."],
+  ["물은 안 줘도", "스트레스는 잘 줍니다."],
+  ["오늘도 무럭무럭...", "살이 자라는 중."],
+  ["토마토는 빨개졌고", "저는 지쳐갔습니다."],
+  ["햇빛보다", "휴대폰 불빛을 더 많이 봤습니다."],
+  ["토마토인데", "케첩이 되고 싶진 않습니다."],
+];
+
 export default function PostsPage({ onlyMine = false }) {
-  useLegacyPage("/legacy/posts.css?v=20260804-scarecrow-link", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
+  useLegacyPage("/legacy/posts.css?v=20260805-inline-card-image", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
 
   const navigate = useNavigate();
   const { token, user } = useAuth();
@@ -16,6 +53,7 @@ export default function PostsPage({ onlyMine = false }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [introMessageIndex, setIntroMessageIndex] = useState(0);
 
   useEffect(() => {
     async function loadPosts() {
@@ -34,6 +72,18 @@ export default function PostsPage({ onlyMine = false }) {
 
     loadPosts();
   }, [searchKeyword, token]);
+
+  useEffect(() => {
+    if (onlyMine) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setIntroMessageIndex((currentIndex) => (currentIndex + 1) % INTRO_MESSAGES.length);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, [onlyMine]);
 
   function handleSearchSubmit(event) {
     event.preventDefault();
@@ -110,11 +160,15 @@ export default function PostsPage({ onlyMine = false }) {
                   토마토 밭처럼 확인해보세요.
                 </>
               ) : (
-                <>
-                  오늘의 감정, 생각, 아무 말까지
-                  <br />
-                  작은 토마토처럼 하나씩 남겨보세요.
-                </>
+                <span className="intro-message-rotator" aria-live="polite">
+                  <span className="intro-message" key={introMessageIndex}>
+                    {INTRO_MESSAGES[introMessageIndex].map((line) => (
+                      <span className="intro-message-line" key={line}>
+                        {line}
+                      </span>
+                    ))}
+                  </span>
+                </span>
               )}
             </p>
 

@@ -269,6 +269,48 @@ button {
   color: #7a5b45;
 }
 
+.intro-message-rotator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 68px;
+  padding: 6px 18px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.72), transparent 26%),
+    linear-gradient(135deg, rgba(255, 247, 226, 0.9), rgba(255, 236, 207, 0.82));
+  box-shadow: inset 0 0 0 1px rgba(220, 166, 118, 0.22);
+  overflow: hidden;
+}
+
+.intro-message {
+  display: grid;
+  gap: 2px;
+  animation: introMessageSlide 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.intro-message-line {
+  display: block;
+}
+
+@keyframes introMessageSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-message {
+    animation: none;
+  }
+}
+
 /* 게시글 작성 버튼 */
 .write-button,
 .garden-button {
@@ -886,7 +928,7 @@ button {
 }
 
 .post-card:has(.post-image-preview) {
-  margin-bottom: 64px;
+  margin-bottom: 0;
 }
 
 .post-card-top {
@@ -991,34 +1033,28 @@ button {
 }
 
 .post-image-preview {
-  --sign-width: 152px;
-  --sign-height: 164px;
-  --photo-left: 22px;
-  --photo-top: 47px;
-  --photo-width: 108px;
-  --photo-height: 66px;
+  position: relative;
+  z-index: 2;
 
-  position: absolute;
-  left: 6px;
-  bottom: -86px;
-  z-index: 3;
+  width: min(230px, 82%);
+  height: 108px;
+  margin: -4px auto 13px;
+  padding: 7px;
 
-  width: var(--sign-width);
-  height: var(--sign-height);
-  margin: 0;
-  padding: 0;
-
-  border: 0;
-  border-radius: 0;
-  background: url("/items/post-signboard.png") center / contain no-repeat;
-  box-shadow: none;
-  transform: rotate(-4deg);
+  border: 2px solid rgba(255, 248, 226, 0.78);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 238, 0.88), rgba(255, 231, 205, 0.7)),
+    rgba(255, 248, 238, 0.74);
+  box-shadow:
+    0 8px 14px rgba(91, 57, 36, 0.16),
+    inset 0 0 0 1px rgba(124, 79, 45, 0.08);
+  overflow: hidden;
+  transform: none;
 }
 
 .post-list > *:nth-child(even) .post-image-preview {
-  left: auto;
-  right: 6px;
-  transform: rotate(4deg);
+  transform: none;
 }
 
 .post-image-preview::before,
@@ -1027,20 +1063,16 @@ button {
 }
 
 .post-list .post-thumbnail {
-  position: absolute;
-  left: var(--photo-left);
-  top: var(--photo-top);
-
   display: block;
-  width: var(--photo-width);
-  height: var(--photo-height);
+  width: 100%;
+  height: 100%;
 
   border: 0;
-  border-radius: 12px;
+  border-radius: 18px;
   object-fit: cover;
   background: #fff8ee;
   box-shadow:
-    0 3px 8px rgba(73, 43, 25, 0.24),
+    0 4px 10px rgba(73, 43, 25, 0.18),
     inset 0 0 0 1px rgba(91, 57, 36, 0.08);
 }
 
@@ -1179,18 +1211,14 @@ button {
   .post-list > * {
     max-width: 340px;
     min-height: 318px;
-    padding-bottom: 92px;
+    padding-bottom: 46px;
   }
 
   .post-image-preview {
-    --sign-width: 128px;
-    --sign-height: 138px;
-    --photo-left: 19px;
-    --photo-top: 40px;
-    --photo-width: 91px;
-    --photo-height: 55px;
-
-    bottom: -78px;
+    width: min(210px, 78%);
+    height: 96px;
+    margin: -2px auto 12px;
+    border-radius: 22px;
   }
 }
 

@@ -15,6 +15,12 @@ export default function PostCard({ post }) {
       <div className="post-card-top">
         <h2 className="post-title">{title}</h2>
 
+        {postImage ? (
+          <div className="post-image-preview">
+            <img src={postImage} alt="게시글 이미지" className="post-thumbnail" />
+          </div>
+        ) : null}
+
         <div className="post-info-row">
           <div className="post-counts">
             <span>좋아요 {formatCount(likes)}</span>
@@ -34,12 +40,6 @@ export default function PostCard({ post }) {
           </div>
         </div>
       </div>
-
-      {postImage ? (
-        <div className="post-image-preview">
-          <img src={postImage} alt="게시글 이미지" className="post-thumbnail" />
-        </div>
-      ) : null}
     </Link>
   );
 }

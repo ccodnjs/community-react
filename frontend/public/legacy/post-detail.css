@@ -606,22 +606,28 @@ button {
   z-index: 1;
 
   padding: 28px 0 8px;
+  overflow: visible;
 }
 
 .post-image {
+  display: block;
   width: 100%;
-  min-height: 260px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
 
-  background-color: #fff3e2;
-  background-size: cover;
-  background-position: center;
+  object-fit: contain;
+  object-position: center;
+  background-color: #fff8ec;
 
   border: 2px dashed #d6a57c;
   border-radius: 20px;
 
   margin-bottom: 26px;
 
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 12px 28px rgba(116, 76, 43, 0.12);
 }
 
 .post-content {

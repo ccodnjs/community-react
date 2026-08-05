@@ -235,20 +235,28 @@ button {
 .farmer-avatar {
   display: grid;
   place-items: center;
-  width: 92px;
-  height: 92px;
-  margin: 0 auto 18px;
-  border: 5px solid rgba(255, 246, 221, 0.92);
+  width: 112px;
+  height: 112px;
+  margin: 0 auto 20px;
+  padding: 7px;
+  overflow: hidden;
+  border: 6px solid rgba(255, 246, 221, 0.95);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 7px 0 rgba(90, 53, 29, 0.2);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.46), transparent 34%),
+    rgba(255, 247, 226, 0.36);
+  box-shadow:
+    0 7px 0 rgba(90, 53, 29, 0.2),
+    0 12px 22px rgba(82, 48, 27, 0.16);
 }
 
 .farmer-avatar-image {
   width: 100%;
   height: 100%;
+  display: block;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center;
 }
 
 .farmer-avatar-fallback {
@@ -326,5 +334,11 @@ button {
 
   .farmers-hero {
     padding: 34px 18px 30px;
+  }
+
+  .farmer-avatar {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 16px;
   }
 }

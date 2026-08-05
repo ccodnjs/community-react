@@ -43,7 +43,7 @@ function getCommentParentId(comment) {
 }
 
 export default function PostDetailPage() {
-  useLegacyPage("/legacy/post-detail.css?v=20260804-replies", "토마토 키우기 - 게시글 상세");
+  useLegacyPage("/legacy/post-detail.css?v=20260805-full-image", "토마토 키우기 - 게시글 상세");
 
   const navigate = useNavigate();
   const { postId } = useParams();
@@ -433,7 +433,9 @@ export default function PostDetailPage() {
             </section>
 
             <section className="post-body">
-              <div className="post-image" id="postImage" style={postImage ? { backgroundImage: `url("${postImage}")`, display: "block" } : { display: "none" }} />
+              {postImage ? (
+                <img className="post-image" id="postImage" src={postImage} alt={`${post.title || "게시글"} 이미지`} />
+              ) : null}
 
               <p className="post-content" id="postContent">{post.content || ""}</p>
 
