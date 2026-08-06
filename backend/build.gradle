@@ -26,6 +26,7 @@ dependencies {
 
 	// H2 DB 사용
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	//spring security 사용
 	implementation 'org.springframework.boot:spring-boot-starter-security'

@@ -1,17 +1,41 @@
 services:
+  mysql:
+    image: mysql:8.4
+    container_name: community-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-community-root-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-community}
+      MYSQL_USER: ${MYSQL_USER:-community}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-community-password}
+      TZ: Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: community-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:h2:file:/app/data/community
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-community}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-community}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-community-password}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    volumes:
-      - backend-data:/app/data
     expose:
       - "8080"
 
@@ -22,6 +46,7 @@ services:
       args:
         VITE_API_BASE_URL: "/api"
     container_name: community-frontend
+    restart: unless-stopped
     depends_on:
       - backend
     expose:
@@ -30,6 +55,7 @@ services:
   nginx:
     image: nginx:1.28-alpine
     container_name: community-nginx
+    restart: unless-stopped
     depends_on:
       - backend
       - frontend
@@ -42,4 +68,4 @@ services:
       - ./certbot/www:/var/www/certbot:ro
 
 volumes:
-  backend-data:
+  mysql-data:

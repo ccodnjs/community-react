@@ -44,7 +44,7 @@ const INTRO_MESSAGES = [
 ];
 
 export default function PostsPage({ onlyMine = false }) {
-  useLegacyPage("/legacy/posts.css?v=20260805-inline-card-image", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
+  useLegacyPage("/legacy/posts.css?v=20260805-clean-search-panel", `토마토 키우기 - ${onlyMine ? "내 토마토 밭" : "게시글 목록"}`);
 
   const navigate = useNavigate();
   const { token, user } = useAuth();
