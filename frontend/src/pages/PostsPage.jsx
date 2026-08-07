@@ -4,6 +4,7 @@ import PostCard from "../components/PostCard";
 import { useAuth } from "../contexts/AuthContext";
 import useLegacyPage from "../hooks/useLegacyPage";
 import { fetchPosts } from "../lib/api";
+import { filterPostsByOwner, normalizeSearchKeyword } from "../lib/posts";
 import { getProfileImageCandidate, getUserLabel } from "../lib/ui";
 
 const INTRO_MESSAGES = [
@@ -88,7 +89,7 @@ export default function PostsPage({ onlyMine = false }) {
   function handleSearchSubmit(event) {
     event.preventDefault();
 
-    const nextKeyword = searchInput.trim();
+    const nextKeyword = normalizeSearchKeyword(searchInput);
     setSearchInput(nextKeyword);
     setSearchKeyword(nextKeyword);
   }
@@ -103,12 +104,7 @@ export default function PostsPage({ onlyMine = false }) {
       return posts;
     }
 
-    const currentUserId = user?.id ?? user?.userId;
-
-    return posts.filter((post) => {
-      const postUserId = post.userId ?? post.authorId ?? post.writerId;
-      return String(postUserId ?? "") === String(currentUserId ?? "");
-    });
+    return filterPostsByOwner(posts, user);
   }, [onlyMine, posts, user]);
 
   const profileImage = getProfileImageCandidate(user?.profileImage);
@@ -123,7 +119,13 @@ export default function PostsPage({ onlyMine = false }) {
 
           <button className="profile-button" id="profileButton" type="button" onClick={() => navigate("/profile")}>
             {profileImage ? (
-              <img alt="프로필 이미지" className="profile-image" id="headerProfileImage" src={profileImage} />
+              <img
+                alt="프로필 이미지"
+                className="profile-image"
+                id="headerProfileImage"
+                src={profileImage}
+                decoding="async"
+              />
             ) : (
               <span className="profile-image profile-fallback">{getUserLabel(user?.nickname || user?.email || "T")}</span>
             )}

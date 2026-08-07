@@ -1,16 +1,22 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
-import FarmersPage from "./pages/FarmersPage";
-import LoginPage from "./pages/LoginPage";
-import MyPostsPage from "./pages/MyPostsPage";
-import PasswordEditPage from "./pages/PasswordEditPage";
-import PostDetailPage from "./pages/PostDetailPage";
-import PostEditPage from "./pages/PostEditPage";
-import PostWritePage from "./pages/PostWritePage";
-import PostsPage from "./pages/PostsPage";
-import ProfilePage from "./pages/ProfilePage";
-import SignupPage from "./pages/SignupPage";
+
+const FarmersPage = lazy(() => import("./pages/FarmersPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const MyPostsPage = lazy(() => import("./pages/MyPostsPage"));
+const PasswordEditPage = lazy(() => import("./pages/PasswordEditPage"));
+const PostDetailPage = lazy(() => import("./pages/PostDetailPage"));
+const PostEditPage = lazy(() => import("./pages/PostEditPage"));
+const PostWritePage = lazy(() => import("./pages/PostWritePage"));
+const PostsPage = lazy(() => import("./pages/PostsPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+
+function PageFallback() {
+  return <div className="page-loader">페이지를 불러오는 중...</div>;
+}
 
 function HomeRedirect() {
   const { token, isReady } = useAuth();
@@ -39,89 +45,91 @@ function PublicOnlyRoute({ children }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomeRedirect />} />
-      <Route
-        path="/login"
-        element={
-          <PublicOnlyRoute>
-            <LoginPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <PublicOnlyRoute>
-            <SignupPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/posts"
-        element={
-          <ProtectedRoute>
-            <PostsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/my-posts"
-        element={
-          <ProtectedRoute>
-            <MyPostsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/farmers"
-        element={
-          <ProtectedRoute>
-            <FarmersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/write"
-        element={
-          <ProtectedRoute>
-            <PostWritePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/password"
-        element={
-          <ProtectedRoute>
-            <PasswordEditPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/posts/:postId"
-        element={
-          <ProtectedRoute>
-            <PostDetailPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/posts/:postId/edit"
-        element={
-          <ProtectedRoute>
-            <PostEditPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <Suspense fallback={<PageFallback />}>
+      <Routes>
+        <Route path="/" element={<HomeRedirect />} />
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <LoginPage />
+            </PublicOnlyRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicOnlyRoute>
+              <SignupPage />
+            </PublicOnlyRoute>
+          }
+        />
+        <Route
+          path="/posts"
+          element={
+            <ProtectedRoute>
+              <PostsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-posts"
+          element={
+            <ProtectedRoute>
+              <MyPostsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/farmers"
+          element={
+            <ProtectedRoute>
+              <FarmersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/write"
+          element={
+            <ProtectedRoute>
+              <PostWritePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/password"
+          element={
+            <ProtectedRoute>
+              <PasswordEditPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/posts/:postId"
+          element={
+            <ProtectedRoute>
+              <PostDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/posts/:postId/edit"
+          element={
+            <ProtectedRoute>
+              <PostEditPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }

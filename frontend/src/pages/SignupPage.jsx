@@ -155,7 +155,12 @@ export default function SignupPage() {
                 className={`profile-preview${form.profileImage ? " has-image" : ""}`}
               >
                 {form.profileImage ? (
-                  <img src={form.profileImage} alt="프로필 미리보기" className="signup-preview-image" />
+                  <img
+                    src={form.profileImage}
+                    alt="프로필 미리보기"
+                    className="signup-preview-image"
+                    decoding="async"
+                  />
                 ) : (
                   <span className="profile-plus">+</span>
                 )}

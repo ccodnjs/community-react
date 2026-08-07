@@ -187,7 +187,7 @@ export default function PostEditPage() {
 
           <button className="profile-button" id="profileButton" type="button" onClick={() => navigate("/profile")}>
             {profileImage ? (
-              <img alt="프로필 이미지" className="profile-image" src={profileImage} />
+              <img alt="프로필 이미지" className="profile-image" src={profileImage} decoding="async" />
             ) : (
               <span className="profile-image profile-fallback">{getUserLabel(user?.nickname || user?.email || "T")}</span>
             )}

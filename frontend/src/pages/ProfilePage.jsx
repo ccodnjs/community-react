@@ -240,7 +240,13 @@ export default function ProfilePage() {
 
           <button className="header-profile-button" id="headerProfileButton" type="button" onClick={() => navigate("/profile")}>
             {headerProfileImage ? (
-              <img alt="프로필 이미지" id="headerProfileImage" className="header-profile-image" src={headerProfileImage} />
+              <img
+                alt="프로필 이미지"
+                id="headerProfileImage"
+                className="header-profile-image"
+                src={headerProfileImage}
+                decoding="async"
+              />
             ) : (
               <span className="header-profile-image profile-fallback">{getUserLabel(profile?.nickname || profile?.email || "T")}</span>
             )}
@@ -275,13 +281,20 @@ export default function ProfilePage() {
                       className={`equipped-item-image ${equippedMeta.className}`}
                       src={equippedMeta.assetPath}
                       alt={equippedMeta.label}
+                      decoding="async"
                     />
                   ) : null}
                 </div>
 
                 <div id="profilePreview" className="profile-preview">
                   {previewImage ? (
-                    <img id="profilePreviewImage" className="profile-preview-image" alt="프로필 미리보기" src={previewImage} />
+                    <img
+                      id="profilePreviewImage"
+                      className="profile-preview-image"
+                      alt="프로필 미리보기"
+                      src={previewImage}
+                      decoding="async"
+                    />
                   ) : (
                     <span id="profilePreviewImage" className="profile-preview-image profile-fallback">
                       {getUserLabel(form.nickname || profile?.nickname || profile?.email || "T")}

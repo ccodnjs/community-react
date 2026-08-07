@@ -3,32 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import useLegacyPage from "../hooks/useLegacyPage";
 import { fetchFarmers } from "../lib/api";
+import { getEquippedItemLabels, sortFarmersForCurrentUser } from "../lib/farmers";
 import { getProfileImageCandidate, getUserLabel } from "../lib/ui";
-
-const ITEM_LABELS = {
-  STRAW_HAT: "밀짚모자",
-  RED_BOOTS: "빨간 장화",
-  GREEN_APRON: "토마토 앞치마",
-  TOMATO_BAG: "토마토 가방",
-  WATERING_CAN: "토마토 펫",
-  SMALL_SHOVEL: "작은 삽",
-  TOMATO_HAIRPIN: "토마토 머리핀",
-  FARMER_GLOVES: "새싹 머리핀",
-};
 
 function FarmerAvatar({ farmer }) {
   const profileImage = getProfileImageCandidate(farmer?.profileImage);
   const nickname = farmer?.nickname || "토마토 농부";
 
   if (profileImage) {
-    return <img className="farmer-avatar-image" src={profileImage} alt={`${nickname} 프로필`} />;
+    return (
+      <img
+        className="farmer-avatar-image"
+        src={profileImage}
+        alt={`${nickname} 프로필`}
+        loading="lazy"
+        decoding="async"
+      />
+    );
   }
 
   return <span className="farmer-avatar-image farmer-avatar-fallback">{getUserLabel(nickname)}</span>;
 }
 
 function EquippedItems({ items }) {
-  const labels = (items || []).map((itemCode) => ITEM_LABELS[itemCode] || itemCode);
+  const labels = getEquippedItemLabels(items);
 
   if (labels.length === 0) {
     return <span className="farmer-empty-item">장착 아이템 없음</span>;
@@ -69,16 +67,7 @@ export default function FarmersPage() {
   }, [token]);
 
   const currentUserId = user?.id ?? user?.userId;
-  const sortedFarmers = [...farmers].sort((left, right) => {
-    const leftIsMine = String(left.id ?? "") === String(currentUserId ?? "");
-    const rightIsMine = String(right.id ?? "") === String(currentUserId ?? "");
-
-    if (leftIsMine !== rightIsMine) {
-      return leftIsMine ? -1 : 1;
-    }
-
-    return Number(right.myPostCount || 0) - Number(left.myPostCount || 0);
-  });
+  const sortedFarmers = sortFarmersForCurrentUser(farmers, user);
 
   const headerProfileImage = getProfileImageCandidate(user?.profileImage);
 
@@ -94,7 +83,7 @@ export default function FarmersPage() {
 
           <button className="profile-button" type="button" onClick={() => navigate("/profile")}>
             {headerProfileImage ? (
-              <img alt="프로필 이미지" className="profile-image" src={headerProfileImage} />
+              <img alt="프로필 이미지" className="profile-image" src={headerProfileImage} decoding="async" />
             ) : (
               <span className="profile-image profile-fallback">{getUserLabel(user?.nickname || user?.email || "T")}</span>
             )}

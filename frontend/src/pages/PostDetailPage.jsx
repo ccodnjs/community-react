@@ -290,7 +290,13 @@ export default function PostDetailPage() {
         <div className="comment-top-row">
           <div className="comment-author-box">
             {commentProfileImage ? (
-              <img src={commentProfileImage} alt="댓글 작성자 프로필" className="comment-author-profile" />
+              <img
+                src={commentProfileImage}
+                alt="댓글 작성자 프로필"
+                className="comment-author-profile"
+                loading="lazy"
+                decoding="async"
+              />
             ) : (
               <span className="comment-author-profile author-profile--fallback">{getUserLabel(commentAuthorName)}</span>
             )}
@@ -379,7 +385,7 @@ export default function PostDetailPage() {
 
           <button className="profile-button" id="profileButton" type="button" onClick={() => navigate("/profile")}>
             {headerProfileImage ? (
-              <img alt="프로필 이미지" className="profile-image" src={headerProfileImage} />
+              <img alt="프로필 이미지" className="profile-image" src={headerProfileImage} decoding="async" />
             ) : (
               <span className="profile-image profile-fallback">{getUserLabel(user?.nickname || user?.email || "T")}</span>
             )}
@@ -409,7 +415,13 @@ export default function PostDetailPage() {
               <div className="post-meta-row">
                 <div className="post-author-box">
                   {authorProfileImage ? (
-                    <img alt="작성자 프로필" className="author-profile" id="authorProfile" src={authorProfileImage} />
+                    <img
+                      alt="작성자 프로필"
+                      className="author-profile"
+                      id="authorProfile"
+                      src={authorProfileImage}
+                      decoding="async"
+                    />
                   ) : (
                     <span className="author-profile author-profile--fallback" id="authorProfile">{getUserLabel(authorName)}</span>
                   )}
@@ -434,7 +446,13 @@ export default function PostDetailPage() {
 
             <section className="post-body">
               {postImage ? (
-                <img className="post-image" id="postImage" src={postImage} alt={`${post.title || "게시글"} 이미지`} />
+                <img
+                  className="post-image"
+                  id="postImage"
+                  src={postImage}
+                  alt={`${post.title || "게시글"} 이미지`}
+                  decoding="async"
+                />
               ) : null}
 
               <p className="post-content" id="postContent">{post.content || ""}</p>

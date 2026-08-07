@@ -63,7 +63,7 @@ public class PostService {
                 );
 
         return posts.stream()
-                .map(this::toResponse)
+                .map(this::toListResponse)
                 .toList();
     }
 
@@ -89,7 +89,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsByUserId(Long userId) {
         return postRepository.findByUserIdOrderByIdDesc(userId).stream()
-                .map(this::toResponse)
+                .map(this::toListResponse)
                 .toList();
     }
 
@@ -129,6 +129,15 @@ public class PostService {
     }
 
     private PostResponse toResponse(Post post) {
+        return toResponse(post, true);
+    }
+
+    private PostResponse toListResponse(Post post) {
+        // 목록 화면에서는 원본 base64 이미지를 제외해 응답 payload를 가볍게 유지한다.
+        return toResponse(post, false);
+    }
+
+    private PostResponse toResponse(Post post, boolean includeImage) {
         User author = userRepository.findById(post.getUserId()).orElse(null);
         long likeCount = postLikeRepository.countByPostId(post.getId());
         long commentCount = commentRepository.countByPostId(post.getId());
@@ -138,7 +147,7 @@ public class PostService {
                 post.getUserId(),
                 post.getTitle(),
                 post.getContent(),
-                post.getImage(),
+                includeImage ? post.getImage() : null,
                 post.getCreatedAt(),
                 post.getViewCount(),
                 likeCount,

@@ -7,7 +7,7 @@ function ProfileAvatar({ user, imageClassName = "profile-image" }) {
   const nickname = user?.nickname || user?.email || "토마토 농부";
 
   if (profileImage) {
-    return <img src={profileImage} alt={`${nickname} 프로필`} className={imageClassName} />;
+    return <img src={profileImage} alt={`${nickname} 프로필`} className={imageClassName} decoding="async" />;
   }
 
   return <span className={`${imageClassName} profile-fallback`}>{getUserLabel(nickname)}</span>;
