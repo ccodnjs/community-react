@@ -1,6 +1,5 @@
 package com.example.community.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +23,6 @@ public class Post {
     private String content;
 
     @Lob
-    @Column(columnDefinition = "CLOB")
     private String image;
 
     private String createdAt;
