@@ -24,8 +24,8 @@ jobs:
           java-version: "21"
           cache: gradle
 
-      - name: Build backend jar
-        run: ./gradlew clean bootJar --no-daemon
+      - name: Test and build backend jar
+        run: ./gradlew clean test bootJar --no-daemon
 
   frontend-ci:
     name: Frontend build
@@ -53,23 +53,53 @@ jobs:
       - name: Build frontend
         run: pnpm build
 
+      - name: Test frontend
+        run: pnpm test
+
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
     needs:
       - backend-ci
       - frontend-ci
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+      MYSQL_USER: ${{ secrets.MYSQL_USER }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
     steps:
+      - name: Check required secrets
+        run: |
+          : "${EC2_HOST:?Missing EC2_HOST secret}"
+          : "${EC2_USER:?Missing EC2_USER secret}"
+          : "${EC2_SSH_KEY:?Missing EC2_SSH_KEY secret}"
+          : "${MYSQL_ROOT_PASSWORD:?Missing MYSQL_ROOT_PASSWORD secret}"
+          : "${MYSQL_DATABASE:?Missing MYSQL_DATABASE secret}"
+          : "${MYSQL_USER:?Missing MYSQL_USER secret}"
+          : "${MYSQL_PASSWORD:?Missing MYSQL_PASSWORD secret}"
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/community-key.pem
+          echo "$EC2_SSH_KEY" > ~/.ssh/community-key.pem
           chmod 600 ~/.ssh/community-key.pem
-          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy with Docker Compose
         run: |
-          ssh -i ~/.ssh/community-key.pem "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" << 'EOF'
+          cat > community.env << ENVEOF
+          MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+          MYSQL_DATABASE=$MYSQL_DATABASE
+          MYSQL_USER=$MYSQL_USER
+          MYSQL_PASSWORD=$MYSQL_PASSWORD
+          ENVEOF
+
+          scp -i ~/.ssh/community-key.pem community.env "$EC2_USER@$EC2_HOST:/tmp/community.env"
+
+          ssh -i ~/.ssh/community-key.pem "$EC2_USER@$EC2_HOST" << 'EOF'
             set -e
 
             if [ ! -d "$HOME/community-react/.git" ]; then
@@ -80,13 +110,10 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            printf '%s\n' \
-              "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" \
-              "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" \
-              "MYSQL_USER=${{ secrets.MYSQL_USER }}" \
-              "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" \
-              > .env
+            mv /tmp/community.env .env
+            chmod 600 .env
 
+            sudo docker compose version
             sudo docker compose pull mysql nginx || true
             sudo docker compose up -d --build mysql backend frontend nginx
             sudo docker compose ps
